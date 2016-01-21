@@ -8,5 +8,5 @@ started:
 ```
 [$] sudo npm install -g yo
 [$] npm install generator-tabris-js
-[$] yo tabrisjs
+[$] yo tabris-js
 ```
