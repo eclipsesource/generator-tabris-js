@@ -1,5 +1,5 @@
 var page = tabris.create("Page", {
-  title: "<%= name %>",
+  title: "TabriJS App",
   topLevel: true
 });
 
