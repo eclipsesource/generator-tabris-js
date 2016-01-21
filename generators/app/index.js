@@ -27,16 +27,24 @@ module.exports = generators.Base.extend({
     }.bind(this));
   },
 
-  writing: function () {
+  writePackageJson: function () {
     this.fs.copyTpl(
       this.templatePath('package.json'),
       this.destinationPath('package.json'),
       { name: input.name, description: input.description, entrypoint: input.entrypoint }
     );
   },
+  
+  writeApp: function () {
+    this.fs.copyTpl(
+      this.templatePath('app.js'),
+      this.destinationPath(input.entrypoint),
+      { name: input.name }
+    );
+  },
 
   installingTabrisJS: function() {
     this.npmInstall(['tabris'], { 'save': true });
   }
-  
+
 });
