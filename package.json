@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "description": "A Yeoman generator for TabrisJS",
   "files": [
-    "app",
-    "router"
+    "generators/app"
   ],
   "keywords": [
     "yeoman-generator"
