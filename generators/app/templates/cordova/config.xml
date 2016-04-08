@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="<%= app_id %>" version="<%= version %>">
+  <name><%= app_name %></name>
+  <description>
+    <%= app_description %>
+  </description>
+  <author email="<%= author_email %>">
+    <%= author_name %>
+  </author>
+</widget>

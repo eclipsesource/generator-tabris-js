@@ -1,5 +1,13 @@
 {
-  "name": "<%= name %>",
-  "description": "<%= description %>",
-  "main": "<%= entrypoint %>"
+  "name": "<%- name %>",
+  "version": "<%- version %>",
+  "main": "<%- main %>",
+  "private": true,
+  "scripts": {
+<% if (proj_type === 'es6') { %>
+    "build:ios": "rm -rf dist/ && cp babel-ios.json .babelrc && babel --compact false --out-dir dist/ src/",
+    "build:android": "rm -rf dist/ && cp babel-android.json .babelrc && babel --compact false --out-dir dist/ src/",
+<% } %>
+    "start": "http-server -c-1"
+  }
 }

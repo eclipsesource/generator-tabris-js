@@ -1,19 +1,28 @@
 {
   "name": "generator-tabris-js",
-  "version": "0.2.0",
-  "description": "A Yeoman generator for TabrisJS",
+  "version": "1.7.0",
+  "description": "A Yeoman generator for Tabris.js",
+  "homepage": "http://tabrisjs.com/",
+  "contributors": [
+    "Ian Bull <irbull@eclipsesource.com>",
+    "Ralf Sternberg <rsternberg@eclipsesource.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipsesource/generator-tabris-js"
+  },
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "native",
+    "mobile",
+    "ios",
+    "android",
+    "yeoman-generator"
+  ],
   "files": [
     "generators/app"
   ],
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "author": "irbull",
   "dependencies": {
     "yeoman-generator": "^0.20.3"
-  },
-  "repository" : { 
-    "type" : "git", 
-    "url"  : "https://github.com/eclipsesource/generator-tabris-js"
   }
 }
