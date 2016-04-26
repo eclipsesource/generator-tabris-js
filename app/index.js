@@ -19,7 +19,8 @@ module.exports = generators.Base.extend({
         type: 'input',
         name: 'name',
         message: 'Your project name',
-        default: this.appname // defaults to current working dir
+        default: this.appname, // defaults to current working dir
+        filter: toId
       }, {
         type: 'input',
         name: 'version',
@@ -40,7 +41,7 @@ module.exports = generators.Base.extend({
         type: 'input',
         name: 'app_id',
         message: 'App ID',
-        default: (answers) => toId(`example.${answers.name}`)
+        default: answers => answers.name
       }, {
         when: answers => answers.prep_build,
         type: 'input',
@@ -48,6 +49,7 @@ module.exports = generators.Base.extend({
         message: 'App name',
         default: answers => toName(answers.name)
       }, {
+        when: answers => answers.prep_build,
         type: 'input',
         name: 'app_description',
         message: 'App description',
@@ -127,7 +129,7 @@ module.exports = generators.Base.extend({
 });
 
 function toId(string) {
-  return string.replace(/[-\s]+/g, '_').toLowerCase();
+  return string.replace(/\s+/g, '-').toLowerCase();
 }
 
 function toName(str) {
