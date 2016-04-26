@@ -75,7 +75,7 @@ module.exports = generators.Base.extend({
 
   writing: function() {
     this.fs.copyTpl(
-      this.templatePath('package.json'),
+      this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       props
     );
@@ -88,17 +88,17 @@ module.exports = generators.Base.extend({
     }
     if (props.proj_type === 'es6') {
       this.fs.copyTpl(
-        this.templatePath('src-es6'),
+        this.templatePath('es6/src'),
         this.destinationPath('src'),
         props
       );
       this.fs.copyTpl(
-        this.templatePath('babel-*.json'),
+        this.templatePath('es6/babel-*.json'),
         this.destinationRoot()
       );
     } else {
       this.fs.copyTpl(
-        this.templatePath('app.js'),
+        this.templatePath('basic/app.js'),
         this.destinationPath(props.main),
         props
       );
