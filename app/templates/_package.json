@@ -8,6 +8,6 @@
     "build:ios": "rm -rf dist/ && cp babel-ios.json .babelrc && babel --compact false --out-dir dist/ src/",
     "build:android": "rm -rf dist/ && cp babel-android.json .babelrc && babel --compact false --out-dir dist/ src/",
 <% } %>
-    "start": "http-server -c-1"
+    "start": "http-server -c-1 -d false"
   }
 }
