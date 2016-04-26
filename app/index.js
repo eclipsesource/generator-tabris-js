@@ -88,6 +88,10 @@ module.exports = generators.Base.extend({
     }
     if (props.proj_type === 'es6') {
       this.fs.copyTpl(
+        this.templatePath('es6/_gitignore'),
+        this.destinationPath('.gitignore')
+      );
+      this.fs.copyTpl(
         this.templatePath('es6/src'),
         this.destinationPath('src'),
         props
@@ -97,6 +101,10 @@ module.exports = generators.Base.extend({
         this.destinationRoot()
       );
     } else {
+      this.fs.copyTpl(
+        this.templatePath('basic/_gitignore'),
+        this.destinationPath('.gitignore')
+      );
       this.fs.copyTpl(
         this.templatePath('basic/app.js'),
         this.destinationPath(props.main),
