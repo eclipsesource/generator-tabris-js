@@ -120,7 +120,17 @@ module.exports = generators.Base.extend({
       save: true
     });
     if (props.proj_type === 'es6') {
-      this.npmInstall(['babel-cli', 'babel-preset-es2015'], {
+      this.npmInstall([
+        'babel-cli',
+        'babel-plugin-transform-es2015-arrow-functions',
+        'babel-plugin-transform-es2015-block-scoping',
+        'babel-plugin-transform-es2015-classes',
+        'babel-plugin-transform-es2015-modules-commonjs',
+        'babel-plugin-transform-es2015-parameters',
+        'babel-plugin-transform-es2015-shorthand-properties',
+        'babel-plugin-transform-es2015-spread',
+        'babel-plugin-transform-es2015-template-literals'
+      ], {
         saveDev: true
       });
     }
