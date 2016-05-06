@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "outDir": "./dist/"
+  },
+  "files": [
+    "./node_modules/tabris/promise.d.ts",
+    "./node_modules/tabris/whatwg-fetch.d.ts",
+    "./src/app.ts",
+    "./src/MainPage.ts"
+  ]
+}

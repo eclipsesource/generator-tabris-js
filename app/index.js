@@ -7,6 +7,9 @@ var projectTypes = [{
   name: 'ES6 App (using Babel transpiler)',
   short: 'ES6 App',
   value: 'es6'
+}, {
+  name: 'TypeScript App',
+  value: 'ts'
 }];
 
 var props;
@@ -69,7 +72,7 @@ module.exports = generators.Base.extend({
       }
     ], (answers) => {
       props = answers;
-      props.build = answers.proj_type === 'es6';
+      props.build = answers.proj_type !== 'basic';
       props.main = answers.build ? 'dist/app.js' : 'app.js';
       done();
     });
@@ -102,6 +105,20 @@ module.exports = generators.Base.extend({
         this.templatePath('es6/babel-*.json'),
         this.destinationRoot()
       );
+    } else if (props.proj_type === 'ts') {
+      this.fs.copyTpl(
+        this.templatePath('ts/_gitignore'),
+        this.destinationPath('.gitignore')
+      );
+      this.fs.copyTpl(
+        this.templatePath('ts/src'),
+        this.destinationPath('src'),
+        props
+      );
+      this.fs.copyTpl(
+        this.templatePath('ts/tsconfig.json'),
+        this.destinationPath('tsconfig.json')
+      );
     } else {
       this.fs.copyTpl(
         this.templatePath('basic/_gitignore'),
@@ -131,6 +148,10 @@ module.exports = generators.Base.extend({
         'babel-plugin-transform-es2015-spread',
         'babel-plugin-transform-es2015-template-literals'
       ], {
+        saveDev: true
+      });
+    } else if (props.proj_type === 'ts') {
+      this.npmInstall(['typescript'], {
         saveDev: true
       });
     }
