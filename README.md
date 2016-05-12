@@ -28,6 +28,20 @@ Get the [Tabris.js Developer App](https://tabrisjs.com/download) and point it to
 
 Check out the [online documentation](https://tabrisjs.com/documentation/latest/) for APIs, examples, and build documentation.
 
+## Contributing
+
+To contribute to the Yeoman generator for tabris.js, begin by cloning this repository. Once cloned you can run `npm install` to install the required dependencies. Next install Yeoman using `npm install yo -g`. Finally you can install the local copy of the tabris.js generator using `npm link`. With the tabris.js generator installed, you can now run `yo  tabris-js` to start the generator.
+
+```
+git clone https://github.com/eclipsesource/generator-tabris-js.git
+cd generator-tabris-js
+npm install
+npm install yo -g
+npm link
+```
+
+You can make changes to generator and test them by using `npm link`. Finally, feel free to suggest changes in [GitHub Issues](https://github.com/eclipsesource/generator-tabris-js/issues), or send us a Pull Request.
+
 ## License
 
 [BSD License](./LICENSE)
