@@ -93,6 +93,10 @@ module.exports = generators.Base.extend({
     }
     if (props.proj_type === 'es6') {
       this.fs.copyTpl(
+        this.templatePath('es6/_babelrc'),
+        this.destinationPath('.babelrc')
+      );
+      this.fs.copyTpl(
         this.templatePath('es6/_gitignore'),
         this.destinationPath('.gitignore')
       );
@@ -100,10 +104,6 @@ module.exports = generators.Base.extend({
         this.templatePath('es6/src'),
         this.destinationPath('src'),
         props
-      );
-      this.fs.copyTpl(
-        this.templatePath('es6/babel-*.json'),
-        this.destinationRoot()
       );
     } else if (props.proj_type === 'ts') {
       this.fs.copyTpl(
@@ -143,6 +143,8 @@ module.exports = generators.Base.extend({
         'babel-plugin-transform-es2015-block-scoping',
         'babel-plugin-transform-es2015-classes',
         'babel-plugin-transform-es2015-modules-commonjs',
+        'babel-plugin-transform-es2015-computed-properties',
+        'babel-plugin-transform-es2015-destructuring',
         'babel-plugin-transform-es2015-parameters',
         'babel-plugin-transform-es2015-shorthand-properties',
         'babel-plugin-transform-es2015-spread',
