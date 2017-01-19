@@ -2,12 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "lib": ["dom", "es5", "scripthost", "es2015.promise" ]
   },
-  "files": [
-    "./node_modules/tabris/promise.d.ts",
+  "include": [
     "./node_modules/tabris/whatwg-fetch.d.ts",
-    "./src/app.ts",
-    "./src/MainPage.ts"
+    "./src/**/*.ts"
   ]
 }
