@@ -15,7 +15,7 @@ var projectTypes = [{
 var props;
 
 module.exports = generators.Base.extend({
-  prompting: function () {
+  prompting: function() {
     var done = this.async();
     this.prompt([
       {
@@ -81,7 +81,7 @@ module.exports = generators.Base.extend({
     });
   },
 
-  writing: function () {
+  writing: function() {
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
@@ -135,7 +135,7 @@ module.exports = generators.Base.extend({
     }
   },
 
-  install: function () {
+  install: function() {
     this.npmInstall(['tabris'], {
       save: true
     });
