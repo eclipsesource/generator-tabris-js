@@ -74,9 +74,9 @@ module.exports = generators.Base.extend({
         default: this.user.git.email
       }
     ], (answers) => {
-      props       = answers;
+      props = answers;
       props.build = answers.proj_type !== 'basic';
-      props.main  = answers.build ? 'dist/app.js' : 'app.js';
+      props.main = answers.build ? 'dist/app.js' : 'app.js';
       done();
     });
   },
