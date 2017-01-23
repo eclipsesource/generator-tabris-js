@@ -8,19 +8,32 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "tabris": false
+  },
   "rules": {
-    "semi": 2,
-    "eqeqeq": 2,
-    "indent": [2, 2],
-    "linebreak-style": [2, "unix"],
-    "no-trailing-spaces": 2,
-    "eol-last": 2,
-    "no-else-return": 2,
-    "no-with": 2,
-    "quotes": [2, "single"],
-    "space-infix-ops": 2,
-    "space-unary-ops": 2,
-    "space-before-blocks": 2,
-    "space-in-parens": [2, "never"]
+    "no-empty": "off",
+    "no-console": "off",
+    "no-control-regex": "off",
+    "semi": "error",
+    "eqeqeq": ["error", "allow-null"],
+    "indent": ["error", 2, {"SwitchCase": 1}],
+    "linebreak-style": ["error", "unix"],
+    "no-trailing-spaces": "error",
+    "space-in-parens": ["error", "never"],
+    "array-bracket-spacing": ["error", "never"],
+    "object-curly-spacing": ["error", "never"],
+    "space-before-blocks": "error",
+    "space-infix-ops": "error",
+    "space-unary-ops": "error",
+    "max-len": ["error", 120, 2, {"ignoreUrls": true, "ignorePattern": "\\/\\^"}],
+    "quotes": ["error", "single", "avoid-escape"],
+    "curly": ["error", "all"],
+    "eol-last": "error",
+    "no-with": "error",
+    "no-var": "error",
+    "prefer-arrow-callback": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "object-shorthand": ["error", "always"]
   }
 }
