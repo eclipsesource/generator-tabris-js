@@ -1,10 +1,20 @@
-import { ui } from 'tabris';
-import MainPage from './MainPage.js';
+import {Page, Button, TextView} from 'tabris';
 
-ui.set({
-  background: 'rgb(200, 50, 50)',
-  textColor: 'white',
-  statusBarTheme: 'dark'
+let page = new Page({
+  title: 'Example App',
+  topLevel: true
 });
 
-new MainPage().open();
+let button = new Button({
+  centerX: 0, top: 100,
+  text: 'Native Widgets'
+}).appendTo(page);
+
+let textView = new TextView({
+  centerX: 0, top: [button, 50],
+  font: '24px'
+}).appendTo(page);
+
+button.on('select', () => textView.set('text', 'Totally Rock!'));
+
+page.open();
