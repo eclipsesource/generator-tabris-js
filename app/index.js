@@ -73,7 +73,7 @@ module.exports = generators.Base.extend({
     ], (answers) => {
       props = answers;
       props.build = answers.proj_type !== 'basic';
-      props.main = answers.build ? 'dist/app.js' : 'app.js';
+      props.main = answers.build ? 'dist/app.js' : 'src/app.js';
       done();
     });
   },
@@ -125,8 +125,8 @@ module.exports = generators.Base.extend({
         this.destinationPath('.gitignore')
       );
       this.fs.copyTpl(
-        this.templatePath('basic/app.js'),
-        this.destinationPath(props.main),
+        this.templatePath('basic/src'),
+        this.destinationPath('src'),
         props
       );
     }
