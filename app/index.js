@@ -133,7 +133,7 @@ module.exports = generators.Base.extend({
   },
 
   install: function() {
-    this.npmInstall(['tabris@^1.0.0'], {
+    this.npmInstall(['tabris@2.0.0-beta1'], {
       save: true
     });
     if (props.proj_type === 'es6') {
