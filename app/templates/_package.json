@@ -11,6 +11,6 @@
 <% } else if (proj_type === 'ts') { %>
     "build": "tsc -p .",
 <% } %>
-    "start": "http-server -c-1 -d false"
+    "start": "tabris serve"
   }
 }
