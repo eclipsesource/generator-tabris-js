@@ -44,7 +44,10 @@ module.exports = generators.Base.extend({
         type: 'input',
         name: 'app_id',
         message: 'App ID',
-        default: answers => answers.name
+        validate: (input) => {
+          return (/\-|\s/.test(input)) ? 'Invalid App ID, use alphanumeric and periods only' : true;
+        },
+        default: answers => toAppId(answers.name)
       }, {
         when: answers => answers.prep_build,
         type: 'input',
@@ -163,6 +166,10 @@ module.exports = generators.Base.extend({
 
 function toId(string) {
   return string.replace(/\s+/g, '-').toLowerCase();
+}
+
+function toAppId(string) {
+  return string.replace(/\s+/g, '.').replace(/\-+/g, '.').toLowerCase();
 }
 
 function toName(str) {
