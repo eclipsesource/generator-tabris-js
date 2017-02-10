@@ -1,6 +1,7 @@
 {
   "name": "generator-tabris-js",
   "version": "2.0.0-beta1",
+  "main": "app/index.js",
   "description": "A Yeoman generator for Tabris.js",
   "homepage": "http://tabrisjs.com/",
   "contributors": [
