@@ -1,6 +1,6 @@
-import {describe, before, it} from 'mocha';
-import {should, expect, to, be, a} from 'chai';
-import {assert, test as helpers} from 'yeoman-generator';
+import {describe, it} from 'mocha';
+import {expect} from 'chai';
+import {assert} from 'yeoman-generator';
 import * as generator from '../app/index';
 import utilities from '../app/utilities';
 
@@ -32,7 +32,7 @@ describe('Generator utilities:', () => {
   describe('Validate AppId:', () => {
     it('should accept a valid app id, words separated by periods', () => {
       expect(utilities.appIdIsValid('my.app.id')).to.be.true;
-    })
+    });
     it('should accept a valid app id, reverse domain name', () => {
       expect(utilities.appIdIsValid('com.tabrisjs.myapp')).to.be.true;
     });

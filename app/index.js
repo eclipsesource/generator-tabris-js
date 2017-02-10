@@ -1,7 +1,7 @@
-var generators = require('yeoman-generator');
-var utilities = require('./utilities.js');
+const generators = require('yeoman-generator');
+const utilities = require('./utilities.js');
 
-var projectTypes = [{
+let projectTypes = [{
   name: 'Basic JS App',
   value: 'basic'
 }, {
@@ -13,11 +13,11 @@ var projectTypes = [{
   value: 'ts'
 }];
 
-var props;
+let props;
 
 module.exports = generators.Base.extend({
-  prompting: function() {
-    var done = this.async();
+  prompting() {
+    let done = this.async();
     this.prompt([
       {
         type: 'input',
@@ -46,9 +46,8 @@ module.exports = generators.Base.extend({
         name: 'app_id',
         message: 'App ID',
         default: answers => utilities.toAppId(answers.name),
-        validate: (input) => {
-          return utilities.appIdIsValid(input) ? true : 'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app';
-        }
+        validate: input => utilities.appIdIsValid(input) ||
+          'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
       }, {
         when: answers => answers.prep_build,
         type: 'input',
@@ -82,7 +81,7 @@ module.exports = generators.Base.extend({
     });
   },
 
-  writing: function() {
+  writing() {
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
@@ -136,7 +135,7 @@ module.exports = generators.Base.extend({
     }
   },
 
-  install: function() {
+  install() {
     this.npmInstall(['tabris@2.0.0-beta1'], {
       save: true
     });
