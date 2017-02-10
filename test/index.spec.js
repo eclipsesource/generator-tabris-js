@@ -1,6 +1,6 @@
 import {describe, it} from 'mocha';
 import {expect} from 'chai';
-import {assert} from 'yeoman-generator';
+import assert from 'yeoman-assert';
 import * as generator from '../app/index';
 import utilities from '../app/utilities';
 

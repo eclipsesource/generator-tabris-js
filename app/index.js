@@ -1,7 +1,7 @@
-const generators = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 const utilities = require('./utilities.js');
 
-let projectTypes = [{
+const PROJECT_TYPES = [{
   name: 'Basic JS App',
   value: 'basic'
 }, {
@@ -13,12 +13,10 @@ let projectTypes = [{
   value: 'ts'
 }];
 
-let props;
+module.exports = class extends Generator {
 
-module.exports = generators.Base.extend({
   prompting() {
-    let done = this.async();
-    this.prompt([
+    return this.prompt([
       {
         type: 'input',
         name: 'name',
@@ -34,7 +32,7 @@ module.exports = generators.Base.extend({
         type: 'list',
         name: 'proj_type',
         message: 'Type of project',
-        choices: projectTypes
+        choices: PROJECT_TYPES
       }, {
         type: 'confirm',
         name: 'prep_build',
@@ -73,28 +71,26 @@ module.exports = generators.Base.extend({
         message: 'Email',
         default: this.user.git.email
       }
-    ], (answers) => {
-      props = answers;
-      props.build = answers.proj_type !== 'basic';
-      props.main = answers.build ? 'dist/app.js' : 'src/app.js';
-      done();
+    ]).then(answers => {
+      let compile = answers.proj_type !== 'basic';
+      this._props = Object.assign(answers, {main: compile ? 'dist/app.js' : 'src/app.js'});
     });
-  },
+  }
 
   writing() {
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
-      props
+      this._props
     );
-    if (props.prep_build) {
+    if (this._props.prep_build) {
       this.fs.copyTpl(
         this.templatePath('cordova'),
         this.destinationPath('cordova'),
-        props
+        this._props
       );
     }
-    if (props.proj_type === 'es6') {
+    if (this._props.proj_type === 'es6') {
       this.fs.copyTpl(
         this.templatePath('es6/_babelrc'),
         this.destinationPath('.babelrc')
@@ -106,9 +102,9 @@ module.exports = generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('es6/src'),
         this.destinationPath('src'),
-        props
+        this._props
       );
-    } else if (props.proj_type === 'ts') {
+    } else if (this._props.proj_type === 'ts') {
       this.fs.copyTpl(
         this.templatePath('ts/_gitignore'),
         this.destinationPath('.gitignore')
@@ -116,7 +112,7 @@ module.exports = generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('ts/src'),
         this.destinationPath('src'),
-        props
+        this._props
       );
       this.fs.copyTpl(
         this.templatePath('ts/tsconfig.json'),
@@ -130,16 +126,16 @@ module.exports = generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('basic/src'),
         this.destinationPath('src'),
-        props
+        this._props
       );
     }
-  },
+  }
 
   install() {
     this.npmInstall(['tabris@2.0.0-beta1'], {
       save: true
     });
-    if (props.proj_type === 'es6') {
+    if (this._props.proj_type === 'es6') {
       this.npmInstall([
         'babel-cli',
         'babel-plugin-transform-es2015-arrow-functions',
@@ -155,11 +151,12 @@ module.exports = generators.Base.extend({
       ], {
         saveDev: true
       });
-    } else if (props.proj_type === 'ts') {
+    } else if (this._props.proj_type === 'ts') {
       this.npmInstall(['typescript'], {
         saveDev: true
       });
     }
   }
 
-});
+};
+
