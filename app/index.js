@@ -1,4 +1,5 @@
 var generators = require('yeoman-generator');
+var utilities = require('./utilities.js');
 
 var projectTypes = [{
   name: 'Basic JS App',
@@ -23,7 +24,7 @@ module.exports = generators.Base.extend({
         name: 'name',
         message: 'Your project name',
         default: this.appname, // defaults to current working dir
-        filter: toId
+        filter: utilities.toId
       }, {
         type: 'input',
         name: 'version',
@@ -44,13 +45,16 @@ module.exports = generators.Base.extend({
         type: 'input',
         name: 'app_id',
         message: 'App ID',
-        default: answers => answers.name
+        default: answers => utilities.toAppId(answers.name),
+        validate: (input) => {
+          return utilities.appIdIsValid(input) ? true : 'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app';
+        }
       }, {
         when: answers => answers.prep_build,
         type: 'input',
         name: 'app_name',
         message: 'App name',
-        default: answers => toName(answers.name)
+        default: answers => utilities.toName(answers.name)
       }, {
         when: answers => answers.prep_build,
         type: 'input',
@@ -160,14 +164,3 @@ module.exports = generators.Base.extend({
   }
 
 });
-
-function toId(string) {
-  return string.replace(/\s+/g, '-').toLowerCase();
-}
-
-function toName(str) {
-  return str.split(/[-_\s]+/)
-    .filter(str => !!str)
-    .map(word => word.charAt(0).toUpperCase() + word.substr(1))
-    .join(' ');
-}
