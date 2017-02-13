@@ -6,7 +6,8 @@
   "homepage": "http://tabrisjs.com/",
   "contributors": [
     "Ian Bull <irbull@eclipsesource.com>",
-    "Ralf Sternberg <rsternberg@eclipsesource.com>"
+    "Ralf Sternberg <rsternberg@eclipsesource.com>",
+    "Cam Stuart <cam.asoftware@gmail.com>"
   ],
   "repository": {
     "type": "git",
@@ -26,14 +27,18 @@
   "dependencies": {
     "yeoman-generator": "^0.20.3"
   },
-  "devDependencies": {
-    "eslint": "^3.14.0"
-  },
   "engines": {
     "node": ">=4.0.0"
   },
   "engine-strict": true,
   "scripts": {
-    "lint": "eslint '**/.js'"
+    "lint": "eslint '**/.js'",
+    "test": "mocha --compilers js:babel-core/register"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-preset-es2015": "^6.22.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
