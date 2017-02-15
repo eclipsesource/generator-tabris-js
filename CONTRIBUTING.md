@@ -6,3 +6,7 @@ At EclipseSource we love pull requests and third party contributions. The follow
 
 To contribute to the Tabris.js Generator, first begin by forking the project on GitHub.
 
+## Writing commit messages
+
+Good commit messages are an essential part of a software system, they describe *how* the software was developed and provide traceability into each aspect of the system.
+
