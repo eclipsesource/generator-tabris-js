@@ -10,3 +10,4 @@ To contribute to the Tabris.js Generator, first begin by forking the project on 
 
 Good commit messages are an essential part of a software system, they describe *how* the software was developed and provide traceability into each aspect of the system.
 
+https://chris.beams.io/posts/git-commit/
