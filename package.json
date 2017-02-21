@@ -41,6 +41,7 @@
   "engine-strict": true,
   "scripts": {
     "lint": "eslint .",
-    "test": "eslint . && mocha --compilers js:babel-core/register"
+    "test": "eslint . && mocha --compilers js:babel-core/register",
+    "test-watch": "eslint . && mocha --watch --growl --compilers js:babel-core/register"
   }
 }

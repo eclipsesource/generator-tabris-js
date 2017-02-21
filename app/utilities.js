@@ -15,7 +15,7 @@ module.exports = {
       .join(' ');
   },
   appIdIsValid(string) {
-    let validAppIdRegex = RegExp(/^([a-z0-9_]+\.)*[a-z][a-z0-9_]+$/, 'i');
+    let validAppIdRegex = RegExp(/^([a-z0-9_]+\.)*[a-z][a-z0-9_]+$/i);
     return validAppIdRegex.test(string);
   }
 };

@@ -1,5 +1,7 @@
 # Tabris.js generator
 
+[![Build Status](https://travis-ci.org/eclipsesource/generator-tabris-js.svg?branch=master)](https://travis-ci.org/eclipsesource/generator-tabris-js)
+
 A [Yeoman](http://yeoman.io) generator for [Tabris.js](https://tabrisjs.com/) apps. It lets you quickly set up a new project with sensible defaults and best practices.
 
 ## Getting Started
