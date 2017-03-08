@@ -4,12 +4,7 @@
   "main": "<%- main %>",
   "private": true,
   "scripts": {
-<% if (proj_type === 'es6') { %>
-    "build:ios": "BABEL_ENV=ios npm run build",
-    "build:android": "BABEL_ENV=android npm run build",
-    "build:win": "BABEL_ENV=win npm run build",
-    "build": "rm -rf dist/ && babel --compact false --out-dir dist/ src/",
-<% } else if (proj_type === 'ts') { %>
+<% if (proj_type === 'ts') { %>
     "build": "tsc -p .",
 <% } %>
     "start": "tabris serve"

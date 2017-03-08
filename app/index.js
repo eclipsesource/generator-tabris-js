@@ -2,12 +2,8 @@ const Generator = require('yeoman-generator');
 const utilities = require('./utilities.js');
 
 const PROJECT_TYPES = [{
-  name: 'Basic JS App',
-  value: 'basic'
-}, {
-  name: 'ES6 App (using Babel transpiler)',
-  short: 'ES6 App',
-  value: 'es6'
+  name: 'JavaScript App',
+  value: 'js'
 }, {
   name: 'TypeScript App',
   value: 'ts'
@@ -72,8 +68,7 @@ module.exports = class extends Generator {
         default: this.user.git.email
       }
     ]).then(answers => {
-      let compile = answers.proj_type !== 'basic';
-      this._props = Object.assign(answers, {main: compile ? 'dist/app.js' : 'src/app.js'});
+      this._props = Object.assign(answers, {main: 'src/app.js'});
     });
   }
 
@@ -90,21 +85,7 @@ module.exports = class extends Generator {
         this._props
       );
     }
-    if (this._props.proj_type === 'es6') {
-      this.fs.copyTpl(
-        this.templatePath('es6/_babelrc'),
-        this.destinationPath('.babelrc')
-      );
-      this.fs.copyTpl(
-        this.templatePath('es6/_gitignore'),
-        this.destinationPath('.gitignore')
-      );
-      this.fs.copyTpl(
-        this.templatePath('es6/src'),
-        this.destinationPath('src'),
-        this._props
-      );
-    } else if (this._props.proj_type === 'ts') {
+    if (this._props.proj_type === 'ts') {
       this.fs.copyTpl(
         this.templatePath('ts/_gitignore'),
         this.destinationPath('.gitignore')
@@ -118,13 +99,13 @@ module.exports = class extends Generator {
         this.templatePath('ts/tsconfig.json'),
         this.destinationPath('tsconfig.json')
       );
-    } else {
+    } else if (this._props.proj_type === 'js') {
       this.fs.copyTpl(
-        this.templatePath('basic/_gitignore'),
+        this.templatePath('js/_gitignore'),
         this.destinationPath('.gitignore')
       );
       this.fs.copyTpl(
-        this.templatePath('basic/src'),
+        this.templatePath('js/src'),
         this.destinationPath('src'),
         this._props
       );
@@ -135,23 +116,7 @@ module.exports = class extends Generator {
     this.npmInstall(['tabris@2.0.0-beta1'], {
       save: true
     });
-    if (this._props.proj_type === 'es6') {
-      this.npmInstall([
-        'babel-cli',
-        'babel-plugin-transform-es2015-arrow-functions',
-        'babel-plugin-transform-es2015-block-scoping',
-        'babel-plugin-transform-es2015-classes',
-        'babel-plugin-transform-es2015-modules-commonjs',
-        'babel-plugin-transform-es2015-computed-properties',
-        'babel-plugin-transform-es2015-destructuring',
-        'babel-plugin-transform-es2015-parameters',
-        'babel-plugin-transform-es2015-shorthand-properties',
-        'babel-plugin-transform-es2015-spread',
-        'babel-plugin-transform-es2015-template-literals'
-      ], {
-        saveDev: true
-      });
-    } else if (this._props.proj_type === 'ts') {
+    if (this._props.proj_type === 'ts') {
       this.npmInstall(['typescript'], {
         saveDev: true
       });
