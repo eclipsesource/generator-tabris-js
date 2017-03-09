@@ -68,7 +68,8 @@ module.exports = class extends Generator {
         default: this.user.git.email
       }
     ]).then(answers => {
-      this._props = Object.assign(answers, {main: 'src/app.js'});
+      let main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
+      this._props = Object.assign(answers, {main});
     });
   }
 
