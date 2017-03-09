@@ -1,9 +1,9 @@
-import {join} from 'path';
-import {readFileSync} from 'fs';
-import {describe, it} from 'mocha';
-import {expect} from 'chai';
-import helpers from 'yeoman-test';
-import assert from 'yeoman-assert';
+const {join} = require('path');
+const {readFileSync} = require('fs');
+const {describe, it} = require('mocha');
+const {expect} = require('chai');
+const helpers = require('yeoman-test');
+const assert = require('yeoman-assert');
 
 describe('Generator (JS)', function() {
 

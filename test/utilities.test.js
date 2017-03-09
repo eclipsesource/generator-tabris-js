@@ -1,6 +1,6 @@
-import {describe, it} from 'mocha';
-import {expect} from 'chai';
-import {toId, toAppId, toName, isValidAppId} from '../app/utilities';
+const {describe, it} = require('mocha');
+const {expect} = require('chai');
+const {toId, toAppId, toName, isValidAppId} = require('../app/utilities');
 
 describe('Generator utilities:', function() {
 
