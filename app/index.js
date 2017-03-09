@@ -1,5 +1,5 @@
 const Generator = require('yeoman-generator');
-const utilities = require('./utilities.js');
+const {toId, toAppId, toName, isValidAppId} = require('./utilities.js');
 
 const PROJECT_TYPES = [{
   name: 'JavaScript App',
@@ -18,7 +18,7 @@ module.exports = class extends Generator {
         name: 'name',
         message: 'Your project name',
         default: this.appname, // defaults to current working dir
-        filter: utilities.toId
+        filter: toId
       }, {
         type: 'input',
         name: 'version',
@@ -39,15 +39,15 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'app_id',
         message: 'App ID',
-        default: answers => utilities.toAppId(answers.name),
-        validate: input => utilities.appIdIsValid(input) ||
+        default: answers => 'example.' + toAppId(answers.name),
+        validate: input => isValidAppId(input) ||
           'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
       }, {
         when: answers => answers.prep_build,
         type: 'input',
         name: 'app_name',
         message: 'App name',
-        default: answers => utilities.toName(answers.name)
+        default: answers => toName(answers.name)
       }, {
         when: answers => answers.prep_build,
         type: 'input',
