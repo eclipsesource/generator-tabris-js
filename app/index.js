@@ -114,7 +114,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(['tabris@2.0.0-beta1'], {
+    this.npmInstall(['tabris@2.0.0-beta2'], {
       save: true
     });
     if (this._props.proj_type === 'ts') {
@@ -125,4 +125,3 @@ module.exports = class extends Generator {
   }
 
 };
-
