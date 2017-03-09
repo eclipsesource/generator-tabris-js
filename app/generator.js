@@ -100,10 +100,18 @@ module.exports = class extends Generator {
         this.templatePath('ts/tsconfig.json'),
         this.destinationPath('tsconfig.json')
       );
+      this.fs.copyTpl(
+        this.templatePath('ts/tslint.json'),
+        this.destinationPath('tslint.json')
+      );
     } else if (this._props.proj_type === 'js') {
       this.fs.copyTpl(
         this.templatePath('js/_gitignore'),
         this.destinationPath('.gitignore')
+      );
+      this.fs.copyTpl(
+        this.templatePath('js/.eslintrc'),
+        this.destinationPath('.eslintrc')
       );
       this.fs.copyTpl(
         this.templatePath('js/src'),
@@ -117,8 +125,12 @@ module.exports = class extends Generator {
     this.npmInstall(['tabris@2.0.0-beta2'], {
       save: true
     });
-    if (this._props.proj_type === 'ts') {
-      this.npmInstall(['typescript'], {
+    if (this._props.proj_type === 'js') {
+      this.npmInstall(['eslint'], {
+        saveDev: true
+      });
+    } else if (this._props.proj_type === 'ts') {
+      this.npmInstall(['typescript', 'tslint'], {
         saveDev: true
       });
     }

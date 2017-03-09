@@ -4,9 +4,12 @@
   "main": "<%- main %>",
   "private": true,
   "scripts": {
-<% if (proj_type === 'ts') { %>
+<% if (proj_type === 'js') { -%>
+    "test": "eslint .",
+<% } else if (proj_type === 'ts') { -%>
+    "test": "tslint 'src/**/*.ts'",
     "build": "tsc -p .",
-<% } %>
+<% } -%>
     "start": "tabris serve"
   }
 }

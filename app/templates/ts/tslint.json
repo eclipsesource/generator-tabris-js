@@ -1,0 +1,12 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "ordered-imports": [false],
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single"],
+    "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+    "await-promise": true,
+    "indent": [true, "spaces"],
+    "max-line-length": [true, 120]
+  }
+}

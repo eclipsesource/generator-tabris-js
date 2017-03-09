@@ -1,9 +1,23 @@
 {
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 5
+    "ecmaVersion": 6,
+    "sourceType": "module"
   },
-  "globals": {
-    "tabris": false
+  "env": {
+    "es6": true
+  },
+  "rules": {
+    "eol-last": "error",
+    "eqeqeq": ["error", "allow-null"],
+    "indent": ["error", 2],
+    "linebreak-style": ["error", "unix"],
+    "max-len": ["error", 120, 2],
+    "no-console": "off",
+    "no-trailing-spaces": "error",
+    "no-var": "error",
+    "no-with": "error",
+    "quotes": ["error", "single", "avoid-escape"],
+    "semi": "error"
   }
 }

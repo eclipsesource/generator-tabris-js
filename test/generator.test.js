@@ -19,6 +19,7 @@ describe('Generator (JS)', function() {
     expect(json.name).to.equal('foo');
     expect(json.version).to.equal('0.1.0');
     expect(json.main).to.equal('src/app.js');
+    expect(json.scripts.test).to.equal('eslint .');
     expect(json.scripts.start).to.equal('tabris serve');
   });
 
@@ -27,7 +28,7 @@ describe('Generator (JS)', function() {
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', 'src/app.js']);
+    assert.file(['.gitignore', '.eslintrc', 'src/app.js']);
   });
 
 });
@@ -50,11 +51,13 @@ describe('Generator (TS)', function() {
     expect(json.name).to.equal('foo');
     expect(json.version).to.equal('0.1.0');
     expect(json.main).to.equal('dist/app.js');
+    expect(json.scripts.test).to.equal("tslint 'src/**/*.ts'");
+    expect(json.scripts.build).to.equal('tsc -p .');
     expect(json.scripts.start).to.equal('tabris serve');
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', 'src/app.ts']);
+    assert.file(['.gitignore', 'tslint.json', 'src/app.ts']);
   });
 
 });
