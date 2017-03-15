@@ -30,12 +30,6 @@ module.exports = class extends Generator {
         message: 'Type of project',
         choices: PROJECT_TYPES
       }, {
-        type: 'confirm',
-        name: 'prep_build',
-        message: 'Prepare app build',
-        default: true
-      }, {
-        when: answers => answers.prep_build,
         type: 'input',
         name: 'app_id',
         message: 'App ID',
@@ -43,25 +37,21 @@ module.exports = class extends Generator {
         validate: input => isValidAppId(input) ||
           'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
       }, {
-        when: answers => answers.prep_build,
         type: 'input',
         name: 'app_name',
         message: 'App name',
         default: answers => toName(answers.name)
       }, {
-        when: answers => answers.prep_build,
         type: 'input',
         name: 'app_description',
         message: 'App description',
         default: 'Example Tabris.js App'
       }, {
-        when: answers => answers.prep_build,
         type: 'input',
         name: 'author_name',
         message: 'Author',
         default: this.user.git.name
       }, {
-        when: answers => answers.prep_build,
         type: 'input',
         name: 'author_email',
         message: 'Email',
@@ -79,13 +69,11 @@ module.exports = class extends Generator {
       this.destinationPath('package.json'),
       this._props
     );
-    if (this._props.prep_build) {
-      this.fs.copyTpl(
-        this.templatePath('cordova'),
-        this.destinationPath('cordova'),
-        this._props
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath('cordova'),
+      this.destinationPath('cordova'),
+      this._props
+    );
     if (this._props.proj_type === 'ts') {
       this.fs.copyTpl(
         this.templatePath('ts/_gitignore'),
