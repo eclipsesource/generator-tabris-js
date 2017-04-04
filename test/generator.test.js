@@ -53,7 +53,9 @@ describe('Generator (TS)', function() {
     expect(json.main).to.equal('dist/app.js');
     expect(json.scripts.test).to.equal("tslint 'src/**/*.ts'");
     expect(json.scripts.build).to.equal('tsc -p .');
-    expect(json.scripts.start).to.equal('tabris serve');
+    expect(json.scripts.serve).to.equal('tabris serve');
+    expect(json.scripts.start).to.equal('npm-run-all --parallel watch serve');
+    expect(json.scripts.watch).to.equal('tsc -w -p .');
   });
 
   it('creates other files', function() {

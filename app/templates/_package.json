@@ -6,10 +6,13 @@
   "scripts": {
 <% if (proj_type === 'js') { -%>
     "test": "eslint .",
+    "start": "tabris serve"
 <% } else if (proj_type === 'ts') { -%>
     "test": "tslint 'src/**/*.ts'",
     "build": "tsc -p .",
-<% } -%>
-    "start": "tabris serve"
+    "watch": "tsc -w -p .",
+    "start": "npm-run-all --parallel watch serve",
+    "serve": "tabris serve"
+ <% } -%>
   }
 }

@@ -118,7 +118,7 @@ module.exports = class extends Generator {
         saveDev: true
       });
     } else if (this._props.proj_type === 'ts') {
-      this.npmInstall(['typescript', 'tslint'], {
+      this.npmInstall(['typescript', 'tslint', 'npm-run-all'], {
         saveDev: true
       });
     }
