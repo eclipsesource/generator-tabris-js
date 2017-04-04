@@ -7,6 +7,10 @@
     "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "await-promise": true,
     "indent": [true, "spaces"],
-    "max-line-length": [true, 120]
+    "max-line-length": [true, 120],
+    "forin": false,
+    "interface-name": [false],
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+    "prefer-const": false
   }
 }
