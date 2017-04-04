@@ -10,6 +10,7 @@ describe('Generator (JS)', function() {
   beforeEach(function() {
     return helpers.run(join(__dirname, '../app')).withPrompts({
       proj_type: 'js',
+      ide_type: 'vsc',
       name: 'foo'
     });
   });
@@ -28,7 +29,7 @@ describe('Generator (JS)', function() {
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', '.eslintrc', 'src/app.js']);
+    assert.file(['.gitignore', '.eslintrc', 'src/app.js', '.vscode/tasks.json']);
   });
 
 });
@@ -38,6 +39,7 @@ describe('Generator (TS)', function() {
   beforeEach(function() {
     return helpers.run(join(__dirname, '../app')).withPrompts({
       proj_type: 'ts',
+      ide_type: 'vsc',
       name: 'foo'
     });
   });
@@ -59,7 +61,7 @@ describe('Generator (TS)', function() {
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', 'tslint.json', 'src/app.ts']);
+    assert.file(['.gitignore', 'tslint.json', 'src/app.ts', '.vscode/tasks.json']);
   });
 
 });

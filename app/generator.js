@@ -9,6 +9,14 @@ const PROJECT_TYPES = [{
   value: 'ts'
 }];
 
+const IDE_TYPES = [{
+  name: 'None',
+  value: 'none'
+}, {
+  name: 'Visual Studio Code',
+  value: 'vsc'
+}];
+
 module.exports = class extends Generator {
 
   prompting() {
@@ -56,6 +64,11 @@ module.exports = class extends Generator {
         name: 'author_email',
         message: 'Email',
         default: this.user.git.email
+      }, {
+        type: 'list',
+        name: 'ide_type',
+        message: 'Configure for IDE',
+        choices: IDE_TYPES
       }
     ]).then(answers => {
       let main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
@@ -105,6 +118,12 @@ module.exports = class extends Generator {
         this.templatePath('js/src'),
         this.destinationPath('src'),
         this._props
+      );
+    }
+    if (this._props.ide_type === 'vsc') {
+      this.fs.copyTpl(
+        this.templatePath('.vscode'),
+        this.destinationPath('.vscode')
       );
     }
   }
