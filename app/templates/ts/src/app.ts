@@ -10,4 +10,4 @@ let textView = new TextView({
   font: '24px'
 }).appendTo(ui.contentView);
 
-button.on('select', () => textView.text = 'Tabris.js rocks!');
+button.on({select: () => textView.text = 'Tabris.js rocks!'});
