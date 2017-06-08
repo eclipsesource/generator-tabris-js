@@ -2,18 +2,18 @@ const Generator = require('yeoman-generator');
 const {toId, toAppId, toName, isValidAppId} = require('./utilities.js');
 
 const PROJECT_TYPES = [{
-  name: 'JavaScript App',
+  name: '1 - JavaScript App',
   value: 'js'
 }, {
-  name: 'TypeScript App',
+  name: '2 - TypeScript App',
   value: 'ts'
 }];
 
 const IDE_TYPES = [{
-  name: 'None',
+  name: '1 - None',
   value: 'none'
 }, {
-  name: 'Visual Studio Code',
+  name: '2 - Visual Studio Code',
   value: 'vsc'
 }];
 
