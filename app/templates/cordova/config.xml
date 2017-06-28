@@ -2,7 +2,7 @@
 <widget id="<%= app_id %>" version="<%= version %>">
   <name><%= app_name %></name>
   <description>
-    <%= app_description %>
+    Example Tabris.js App
   </description>
   <author email="<%= author_email %>">
     <%= author_name %>

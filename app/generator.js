@@ -53,21 +53,6 @@ module.exports = class extends Generator {
         message: 'App name',
         default: answers => toName(answers.name)
       }, {
-        type: 'input',
-        name: 'app_description',
-        message: 'App description',
-        default: 'Example Tabris.js App'
-      }, {
-        type: 'input',
-        name: 'author_name',
-        message: 'Author',
-        default: this.user.git.name
-      }, {
-        type: 'input',
-        name: 'author_email',
-        message: 'Email',
-        default: this.user.git.email
-      }, {
         type: 'list',
         name: 'ide_type',
         message: 'Configure for IDE',
@@ -75,7 +60,9 @@ module.exports = class extends Generator {
       }
     ]).then(answers => {
       let main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
-      this._props = Object.assign(answers, {main});
+      let author_name = this.user.git.name;
+      let author_email = this.user.git.email;
+      this._props = Object.assign(answers, {main, author_name, author_email});
     });
   }
 
