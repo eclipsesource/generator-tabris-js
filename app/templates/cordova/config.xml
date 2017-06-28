@@ -7,4 +7,5 @@
   <author email="<%= author_email %>">
     <%= author_name %>
   </author>
+  <preference name="EnableDeveloperConsole" value="$IS_DEBUG" />
 </widget>
