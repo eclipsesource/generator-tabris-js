@@ -1,5 +1,6 @@
 const Generator = require('yeoman-generator');
 const {toId, toAppId, toName, isValidAppId} = require('./utilities.js');
+const semver = require('semver');
 
 const PROJECT_TYPES = [{
   name: '1 - JavaScript App',
@@ -31,7 +32,9 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'version',
         message: 'Initial version',
-        default: '0.1.0'
+        default: '0.1.0',
+        validate: input => semver.valid(input) ||
+          'Invalid version number, use valid semver (major.minor.patch)'
       }, {
         type: 'list',
         name: 'proj_type',
