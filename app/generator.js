@@ -33,7 +33,7 @@ module.exports = class extends Generator {
         name: 'version',
         message: 'Initial version',
         default: '0.1.0',
-        validate: input => semver.valid(input) ||
+        validate: input => (semver.valid(input) != null) ||
           'Invalid version number, use valid semver (major.minor.patch)'
       }, {
         type: 'list',
