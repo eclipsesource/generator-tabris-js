@@ -60,8 +60,8 @@ module.exports = class extends Generator {
       }
     ]).then(answers => {
       let main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
-      let author_name = this.user.git.name();
-      let author_email = this.user.git.email();
+      let author_name = this.user.git.name() || 'John Smith';
+      let author_email = this.user.git.email() || 'john@example.org';
       this._props = Object.assign(answers, {main, author_name, author_email});
     });
   }
