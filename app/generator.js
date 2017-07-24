@@ -77,6 +77,11 @@ module.exports = class extends Generator {
       this.destinationPath('cordova'),
       this._props
     );
+    this.fs.copyTpl(
+      this.templatePath('_tabrisignore'),
+      this.destinationPath('.tabrisignore'),
+      this._props
+    );
     if (this._props.proj_type === 'ts') {
       this.fs.copyTpl(
         this.templatePath('ts/_gitignore'),

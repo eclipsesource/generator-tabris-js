@@ -29,7 +29,7 @@ describe('Generator (JS)', function() {
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', '.eslintrc', 'src/app.js', '.vscode/tasks.json']);
+    assert.file(['.gitignore', '.tabrisignore', '.eslintrc', 'src/app.js', '.vscode/tasks.json']);
   });
 
 });
@@ -61,7 +61,7 @@ describe('Generator (TS)', function() {
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', 'tslint.json', 'src/app.ts', '.vscode/tasks.json']);
+    assert.file(['.gitignore', '.tabrisignore', 'tslint.json', 'src/app.ts', '.vscode/tasks.json']);
   });
 
 });
