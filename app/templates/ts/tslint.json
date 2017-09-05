@@ -3,14 +3,23 @@
   "rules": {
     "ordered-imports": [false],
     "object-literal-sort-keys": false,
-    "quotemark": [true, "single"],
+    "quotemark": [false],
     "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "await-promise": true,
-    "indent": [true, "spaces"],
-    "max-line-length": [true, 120],
+    "indent": false,
+    "max-line-length": [false],
     "forin": false,
     "interface-name": [false],
     "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
-    "prefer-const": false
+    "prefer-const": false,
+    "no-invalid-this": true,
+    "no-unbound-method": true,
+    "no-unsafe-any": true,
+    "typedef": [
+      true,
+      "member-variable-declaration",
+      "parameter",
+      "property-declaration"
+    ]
   }
 }
