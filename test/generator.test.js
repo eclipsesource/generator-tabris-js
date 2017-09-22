@@ -54,7 +54,7 @@ describe('Generator (TS)', function() {
     expect(json.version).to.equal('0.1.0');
     expect(json.main).to.equal('dist/app.js');
     expect(json.scripts.test).to.equal('npm run lint');
-    expect(json.scripts.lint).to.equal('tslint --project . \'src/**/*.ts\'');
+    expect(json.scripts.lint).to.equal('tslint --project . \'src/**/*.ts\' \'src/**/*.tsx\'');
     expect(json.scripts.build).to.equal('tsc -p .');
     expect(json.scripts.serve).to.equal('tabris serve');
     expect(json.scripts.start).to.equal('npm-run-all --parallel watch serve');

@@ -9,7 +9,7 @@
     "start": "tabris serve"
 <% } else if (proj_type === 'ts') { -%>
     "test": "npm run lint",
-    "lint": "tslint --project . 'src/**/*.ts'",
+    "lint": "tslint --project . 'src/**/*.ts' 'src/**/*.tsx'",
     "build": "tsc -p .",
     "watch": "tsc -w -p .",
     "start": "npm-run-all --parallel watch serve",
