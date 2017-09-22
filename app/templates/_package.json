@@ -8,7 +8,8 @@
     "test": "eslint .",
     "start": "tabris serve"
 <% } else if (proj_type === 'ts') { -%>
-    "test": "tslint 'src/**/*.ts'",
+    "test": "npm run lint",
+    "lint": "tslint --project . 'src/**/*.ts'",
     "build": "tsc -p .",
     "watch": "tsc -w -p .",
     "start": "npm-run-all --parallel watch serve",
