@@ -8,7 +8,7 @@
     "test": "eslint .",
     "start": "tabris serve"
 <% } else if (proj_type === 'ts') { -%>
-    "test": "npm run lint",
+    "test": "npm run build && npm run lint",
     "lint": "tslint --project . 'src/**/*.ts' 'src/**/*.tsx'",
     "build": "tsc -p .",
     "watch": "tsc -w -p .",
