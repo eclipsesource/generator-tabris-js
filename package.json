@@ -1,6 +1,6 @@
 {
   "name": "generator-tabris-js",
-  "version": "2.6.1",
+  "version": "3.0.0-beta1",
   "main": "app/index.js",
   "description": "A Yeoman generator for Tabris.js",
   "homepage": "http://tabrisjs.com/",
@@ -26,12 +26,12 @@
   ],
   "dependencies": {
     "semver": "^5.3.0",
-    "yeoman-generator": "^1.1.0"
+    "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.17.1",
-    "mocha": "^3.2.0",
+    "mocha": "^5.2.0",
     "tslint": "^4.5.1",
     "typescript": "^2.2.1",
     "yeoman-assert": "^3.0.0",
