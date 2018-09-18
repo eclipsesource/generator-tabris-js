@@ -2,16 +2,15 @@
   "main": "<%- main %>",
   "private": true,
   "scripts": {
-<% if (proj_type === 'js') { -%>
+<% if (proj_type === 'js') { %>
     "test": "eslint .",
-    "start": "tabris serve"
-<% } else if (proj_type === 'ts') { -%>
+    "start": "tabris serve -a"
+<% } else if (proj_type === 'ts') { %>
     "test": "npm run build && npm run lint",
-    "lint": "tslint --project . 'src/**/*.ts' 'src/**/*.tsx'",
+    "lint": "tslint --project .",
     "build": "tsc -p .",
-    "watch": "tsc -w -p .",
-    "start": "npm-run-all --parallel watch serve",
-    "serve": "tabris serve"
- <% } -%>
+    "watch": "tsc -p . -w --preserveWatchOutput",
+    "start": "tabris serve -a -w"
+ <% } %>
   }
 }

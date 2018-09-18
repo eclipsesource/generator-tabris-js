@@ -19,7 +19,7 @@ describe('Generator (JS)', function() {
     let json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
     expect(json.main).to.equal('src/app.js');
     expect(json.scripts.test).to.equal('eslint .');
-    expect(json.scripts.start).to.equal('tabris serve');
+    expect(json.scripts.start).to.equal('tabris serve -a');
   });
 
   it('creates config.xml with correct id and version', function() {
@@ -50,11 +50,10 @@ describe('Generator (TS)', function() {
     let json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
     expect(json.main).to.equal('dist/app.js');
     expect(json.scripts.test).to.equal('npm run build && npm run lint');
-    expect(json.scripts.lint).to.equal('tslint --project . \'src/**/*.ts\' \'src/**/*.tsx\'');
+    expect(json.scripts.lint).to.equal('tslint --project .');
     expect(json.scripts.build).to.equal('tsc -p .');
-    expect(json.scripts.serve).to.equal('tabris serve');
-    expect(json.scripts.start).to.equal('npm-run-all --parallel watch serve');
-    expect(json.scripts.watch).to.equal('tsc -w -p .');
+    expect(json.scripts.start).to.equal('tabris serve -a -w');
+    expect(json.scripts.watch).to.equal('tsc -p . -w --preserveWatchOutput');
   });
 
   it('creates other files', function() {

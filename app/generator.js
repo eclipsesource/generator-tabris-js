@@ -109,7 +109,8 @@ module.exports = class extends Generator {
     if (this._props.ide_type === 'vsc') {
       this.fs.copyTpl(
         this.templatePath('.vscode'),
-        this.destinationPath('.vscode')
+        this.destinationPath('.vscode'),
+        this._props
       );
     }
   }
@@ -123,7 +124,7 @@ module.exports = class extends Generator {
         saveDev: true
       });
     } else if (this._props.proj_type === 'ts') {
-      this.npmInstall(['typescript', 'tslint', 'npm-run-all'], {
+      this.npmInstall(['typescript', 'tslint'], {
         saveDev: true
       });
     }
