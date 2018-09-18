@@ -58,7 +58,7 @@ describe('Generator (TS)', function() {
   });
 
   it('creates other files', function() {
-    assert.file(['.gitignore', '.tabrisignore', 'tslint.json', 'src/app.ts', '.vscode/tasks.json']);
+    assert.file(['.gitignore', '.tabrisignore', 'tslint.json', 'src/app.tsx', '.vscode/tasks.json']);
   });
 
 });
