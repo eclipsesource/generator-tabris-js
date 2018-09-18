@@ -1,16 +1,19 @@
 /*
  * Utility functions for convenience
  */
-module.exports = {toId, toAppId, toName, isValidAppId};
+module.exports = {toAppId, toName, isValidAppId};
 
 const VALID_APP_ID_REGEX = /^([a-z0-9_]+\.)+[a-z][a-z0-9_]+$/i;
 
-function toId(string) {
-  return string.replace(/\s+/g, '-').replace(/-+/g, '-').toLowerCase();
-}
-
-function toAppId(string) {
-  return string.replace(/\s+/g, '.').replace(/\-+/g, '.').toLowerCase();
+function toAppId(user, appname) {
+  return user.github.username()
+    .catch(() => user.git.email() ? user.git.email().split('@')[0] : null)
+    .then(username => username || 'org.example')
+    .then(domain => domain + '.' + appname.replace(/\s+/g, '').replace(/\-+/g, '').toLowerCase())
+    .catch(error => {
+      console.log(error);
+      return '';
+    });
 }
 
 function toName(string) {

@@ -1,35 +1,44 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const {toId, toAppId, toName, isValidAppId} = require('../app/utilities');
+const {toAppId, toName, isValidAppId} = require('../app/utilities');
 
 describe('Generator utilities:', function() {
 
-  describe('toId', function() {
-
-    it('translates a single word to lowercase', function() {
-      expect(toId('MyApp')).to.equal('myapp');
-    });
-
-    it('replaces all spaces with dashes, translates to lowercase', function() {
-      expect(toId('My Little App')).to.equal('my-little-app');
-      expect(toId('My  Little\tApp')).to.equal('my-little-app');
-    });
-
-    it('reduces subsequent dashes to a single one', function() {
-      expect(toId('My Little - App')).to.equal('my-little-app');
-    });
-
-  });
-
   describe('toAppId', function() {
 
-    it('translates a single word to lowercase', function() {
-      expect(toAppId('MyApp')).to.equal('myapp');
+    let userMock;
+
+    beforeEach(function() {
+      userMock = {
+        github: {username: () => Promise.reject()},
+        git: {email: () => null}
+      };
     });
 
-    it('replaces spaces with periods, translates to lowercase', function() {
-      expect(toAppId('My Little App')).to.equal('my.little.app');
-      expect(toAppId('My  Little\tApp')).to.equal('my.little.app');
+    it('translates a single word to lowercase', function() {
+      return toAppId(userMock, 'MyApp').then(appid => {
+        expect(appid).to.equal('org.example.myapp');
+      });
+    });
+
+    it('strips spaces, translates to lowercase', function() {
+      return toAppId(userMock, 'My  Little\tApp').then(appid => {
+        expect(appid).to.equal('org.example.mylittleapp');
+      });
+    });
+
+    it('uses github user name as prefix', function() {
+      userMock.github.username = () => Promise.resolve('mygithubname');
+      return toAppId(userMock, 'myapp').then(appid => {
+        expect(appid).to.equal('mygithubname.myapp');
+      });
+    });
+
+    it('uses user email name as prefix', function() {
+      userMock.git.email = () => 'name@domain.org';
+      return toAppId(userMock, 'myapp').then(appid => {
+        expect(appid).to.equal('name.myapp');
+      });
     });
 
   });

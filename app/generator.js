@@ -1,6 +1,5 @@
 const Generator = require('yeoman-generator');
-const {toId, toAppId, toName, isValidAppId} = require('./utilities.js');
-const semver = require('semver');
+const {toAppId, toName, isValidAppId} = require('./utilities.js');
 
 const PROJECT_TYPES = [{
   name: '1 - JavaScript App',
@@ -24,34 +23,21 @@ module.exports = class extends Generator {
     return this.prompt([
       {
         type: 'input',
-        name: 'name',
-        message: 'Your project name',
-        default: this.appname, // defaults to current working dir
-        filter: toId
+        name: 'app_name',
+        message: 'App name',
+        default: toName(this.appname)
       }, {
         type: 'input',
-        name: 'version',
-        message: 'Initial version',
-        default: '0.1.0',
-        validate: input => (semver.valid(input) != null) ||
-          'Invalid version number, use valid semver (major.minor.patch)'
+        name: 'app_id',
+        message: 'App ID',
+        default: answers => toAppId(this.user, answers.app_name),
+        validate: input => isValidAppId(input) ||
+          'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
       }, {
         type: 'list',
         name: 'proj_type',
         message: 'Type of project',
         choices: PROJECT_TYPES
-      }, {
-        type: 'input',
-        name: 'app_id',
-        message: 'App ID',
-        default: answers => 'example.' + toAppId(answers.name),
-        validate: input => isValidAppId(input) ||
-          'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
-      }, {
-        type: 'input',
-        name: 'app_name',
-        message: 'App name',
-        default: answers => toName(answers.name)
       }, {
         type: 'list',
         name: 'ide_type',
