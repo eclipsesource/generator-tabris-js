@@ -1,0 +1,8 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+  "files.exclude": {
+    "dist": true,
+    ".vscode": true
+  }
+}
