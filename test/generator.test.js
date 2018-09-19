@@ -16,7 +16,7 @@ describe('Generator (JS)', function() {
   });
 
   it('creates package.json with correct content', function() {
-    let json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
+    const json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
     expect(json.main).to.equal('src/app.js');
     expect(json.scripts.test).to.equal('eslint .');
     expect(json.scripts.start).to.equal('tabris serve -a');
@@ -47,7 +47,7 @@ describe('Generator (TS)', function() {
   });
 
   it('creates package.json with correct content', function() {
-    let json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
+    const json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
     expect(json.main).to.equal('dist/app.js');
     expect(json.scripts.test).to.equal('npm run build && npm run lint');
     expect(json.scripts.lint).to.equal('tslint --project .');

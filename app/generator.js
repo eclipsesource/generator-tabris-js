@@ -1,19 +1,30 @@
+const inquirer = require('inquirer');
 const Generator = require('yeoman-generator');
 const {toAppId, toName, isValidAppId} = require('./utilities.js');
 
-const PROJECT_TYPES = [{
-  name: '1 - JavaScript App',
-  value: 'js'
-}, {
-  name: '2 - TypeScript App',
-  value: 'ts'
-}];
+const PROJECT_TYPES = [
+  new inquirer.Separator('   '),
+  {
+    name: 'Compiled (recommended)',
+    short: 'Compiled',
+    value: 'ts',
+  },
+  new inquirer.Separator(
+    'Modern JavaScript, JSX and/or TypeScript. Examples in Tabris.js documentation assume use this template.'
+  ),
+  new inquirer.Separator('   '),
+  {
+    name: 'Vanilla',
+    value: 'js'
+  },
+  new inquirer.Separator('Runs JavaScript files as-is. No ES6 Modules, async/await or JSX.')
+];
 
 const IDE_TYPES = [{
-  name: '1 - None',
+  name: 'None',
   value: 'none'
 }, {
-  name: '2 - Visual Studio Code',
+  name: 'Visual Studio Code',
   value: 'vsc'
 }];
 
@@ -36,18 +47,18 @@ module.exports = class extends Generator {
       }, {
         type: 'list',
         name: 'proj_type',
-        message: 'Type of project',
+        message: 'Type of project?',
         choices: PROJECT_TYPES
       }, {
         type: 'list',
         name: 'ide_type',
-        message: 'Configure for IDE',
+        message: 'Additional IDE configuration? (e.g. launch options)',
         choices: IDE_TYPES
       }
     ]).then(answers => {
-      let main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
-      let author_name = this.user.git.name() || 'John Smith';
-      let author_email = this.user.git.email() || 'john@example.org';
+      const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
+      const author_name = this.user.git.name() || 'John Smith';
+      const author_email = this.user.git.email() || 'john@example.org';
       this._props = Object.assign(answers, {main, author_name, author_email});
     });
   }
