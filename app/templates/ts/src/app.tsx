@@ -1,6 +1,6 @@
-import { Button, WidgetCollection, TextView, ui } from 'tabris';
+import { Button, WidgetCollection, TextView, contentView } from 'tabris';
 
-ui.contentView.append(
+contentView.append(
   <WidgetCollection>
     <Button centerX={0} centerY={0} onSelect={showText} >Tap here</Button>
     <TextView centerX={0} bottom='prev() 20' font='24px' />
@@ -8,5 +8,5 @@ ui.contentView.append(
 );
 
 function showText() {
-  ui.find(TextView).first().text = 'Tabris.js rocks!';
+  contentView.find(TextView).first().text = 'Tabris.js rocks!';
 }
