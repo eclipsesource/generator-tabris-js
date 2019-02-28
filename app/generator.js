@@ -127,7 +127,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(['tabris@>=3.0.0 || 3.0.0-beta2 || 3.0.0-beta2-dev.20190204'], {
+    this.npmInstall(['tabris@>=3.0.0 || 3.0.0-beta2'], {
       save: true
     });
     if (this._props.proj_type === 'js') {
