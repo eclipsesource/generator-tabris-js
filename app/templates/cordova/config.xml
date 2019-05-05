@@ -8,4 +8,7 @@
     <%= author_name %>
   </author>
   <preference name="EnableDeveloperConsole" value="$IS_DEBUG" />
+  <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
+    <application android:usesCleartextTraffic="$IS_DEBUG" />
+  </edit-config>
 </widget>
