@@ -9,16 +9,16 @@
     "commonjs": true
   },
   "rules": {
-    "eol-last": "error",
-    "eqeqeq": ["error", "allow-null"],
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "max-len": ["error", 120, 2],
+    "eol-last": "warn",
+    "eqeqeq": ["warn", "allow-null"],
+    "linebreak-style": ["warn", "unix"],
     "no-console": "off",
-    "no-trailing-spaces": "error",
-    "no-var": "error",
-    "no-with": "error",
-    "quotes": ["error", "single", "avoid-escape"],
-    "semi": "error"
+    "no-var": "warn",
+    "no-with": "warn",
+    "prefer-const": "warn",
+    "prefer-arrow-callback": ["warn", {
+      "allowNamedFunctions": true,
+      "allowUnboundThis": false
+    }]
   }
 }

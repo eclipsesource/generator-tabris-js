@@ -5,9 +5,13 @@
       "type": "npm",
       "script": "start",
       "isBackground": true,
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "problemMatcher": [<% if (proj_type === 'ts') { %>
         "$tsc-watch"
-        <% } %>]
+      <% } %>]
     },<% if (proj_type === 'ts') { %>
     {
       "type": "npm",
@@ -34,9 +38,14 @@
     {
       "type": "npm",
       "script": "test",
-      "problemMatcher": [
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": [<% if (proj_type === 'ts') { %>
         "$tslint5",
-        "$tsc"
+        "$tsc"<% } else { %>
+        "$eslint-stylish"<% } %>
       ]
     }
   ]

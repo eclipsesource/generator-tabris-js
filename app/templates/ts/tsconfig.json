@@ -4,8 +4,6 @@
     "target": "es6",
     "outDir": "./dist/",
     "lib": [
-      "es6",
-      "es2015.promise",
       "es2017"
     ],
     "jsx": "react",
@@ -17,7 +15,8 @@
     "alwaysStrict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "allowJs": true
+    "allowJs": true,
+    "typeRoots": ["node_modules/@types"]
   },
   "include": [
     "./src/**/*.ts",

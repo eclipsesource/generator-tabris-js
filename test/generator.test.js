@@ -22,6 +22,12 @@ describe('Generator (JS)', function() {
     expect(json.scripts.start).to.equal('tabris serve -a');
   });
 
+  it('creates settings.json with correct content', function() {
+    const json = JSON.parse(readFileSync('.vscode/settings.json', {encoding: 'utf-8'}));
+    expect(json['tslint.jsEnable']).to.be.false;
+    expect(json['eslint.enable']).to.be.true;
+  });
+
   it('creates config.xml with correct id and version', function() {
     assert.fileContent('cordova/config.xml', /<widget id=".+.foo" version="0.1.0">/);
   });
@@ -50,10 +56,16 @@ describe('Generator (TS)', function() {
     const json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
     expect(json.main).to.equal('dist/app.js');
     expect(json.scripts.test).to.equal('npm run build && npm run lint');
-    expect(json.scripts.lint).to.equal('tslint --project .');
+    expect(json.scripts.lint).to.equal('tslint --project . -t verbose');
     expect(json.scripts.build).to.equal('tsc -p .');
     expect(json.scripts.start).to.equal('tabris serve -a -w');
-    expect(json.scripts.watch).to.equal('tsc -p . -w --preserveWatchOutput');
+    expect(json.scripts.watch).to.equal('tsc -p . -w --preserveWatchOutput --inlineSourceMap');
+  });
+
+  it('creates settings.json with correct content', function() {
+    const json = JSON.parse(readFileSync('.vscode/settings.json', {encoding: 'utf-8'}));
+    expect(json['tslint.jsEnable']).to.be.true;
+    expect(json['eslint.enable']).to.be.false;
   });
 
   it('creates other files', function() {
