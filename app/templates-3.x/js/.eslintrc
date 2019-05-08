@@ -1,0 +1,24 @@
+{
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "commonjs": true
+  },
+  "rules": {
+    "eol-last": "warn",
+    "eqeqeq": ["warn", "allow-null"],
+    "linebreak-style": ["warn", "unix"],
+    "no-console": "off",
+    "no-var": "warn",
+    "no-with": "warn",
+    "prefer-const": "warn",
+    "prefer-arrow-callback": ["warn", {
+      "allowNamedFunctions": true,
+      "allowUnboundThis": false
+    }]
+  }
+}

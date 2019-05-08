@@ -1,0 +1,16 @@
+{
+  "main": "<%- main %>",
+  "private": true,
+  "scripts": {
+<% if (proj_type === 'js') { %>
+    "test": "eslint .",
+    "start": "tabris serve"
+<% } else if (proj_type === 'ts') { %>
+    "test": "npm run build && npm run lint",
+    "lint": "tslint --project . -t verbose",
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w --preserveWatchOutput",
+    "start": "tabris serve -w"
+ <% } %>
+  }
+}

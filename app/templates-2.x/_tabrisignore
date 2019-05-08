@@ -1,0 +1,14 @@
+<% if (proj_type === 'js') { -%>
+.eslintrc
+<% } else if (proj_type === 'ts') { -%>
+src/
+tslint.json
+tsconfig.json
+<% } -%>
+.gitignore
+<% if (ide_type === 'vsc') { -%>
+.vscode/
+<% } -%>
+node_modules/**/*.d.ts
+package-lock.json
+README.md

@@ -1,0 +1,5 @@
+{
+  "recommendations": [
+    <%- proj_type === 'ts' ? '"eg2.tslint"' : '"dbaeumer.vscode-eslint"'%>
+  ]
+}

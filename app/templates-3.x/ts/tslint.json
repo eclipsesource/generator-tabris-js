@@ -1,0 +1,49 @@
+{
+  "extends": "tslint:recommended",
+  "defaultSeverity": "warn",
+  "rules": {
+    "ordered-imports": [false],
+    "trailing-comma": [false],
+    "object-literal-sort-keys": false,
+    "quotemark": [false],
+    "variable-name": false,
+    "indent": false,
+    "max-line-length": [false],
+    "forin": false,
+    "linebreak-style": [true, "LF"],
+    "prefer-const": false,
+    "interface-name": [false],
+    "await-promise": true,
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+    "promise-function-async": true,
+    "no-floating-promises": true,
+    "encoding": true,
+    "linebreak-style": true,
+    "no-invalid-this": true,
+    "no-unbound-method": true,
+    "no-any": true,
+    "no-boolean-literal-compare": true,
+    "typedef": [
+      true,
+      "member-variable-declaration",
+      "parameter",
+      "property-declaration"
+    ]
+  },
+  "jsRules": {
+    "ordered-imports": [false],
+    "trailing-comma": [false],
+    "object-literal-sort-keys": false,
+    "quotemark": [false],
+    "variable-name": false,
+    "indent": false,
+    "max-line-length": [false],
+    "forin": false,
+    "prefer-const": true,
+    "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+    "promise-function-async": true,
+    "encoding": true,
+    "linebreak-style": [true, "LF"],
+    "no-invalid-this": true
+  }
+}

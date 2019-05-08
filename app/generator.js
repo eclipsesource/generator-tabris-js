@@ -1,3 +1,4 @@
+const path = require('path');
 const inquirer = require('inquirer');
 const Generator = require('yeoman-generator');
 const {toAppId, toName, isValidAppId} = require('./utilities.js');
@@ -10,7 +11,7 @@ const PROJECT_TYPES = [
     value: 'ts',
   },
   new inquirer.Separator(
-    'Modern JavaScript, JSX and/or TypeScript. Examples in Tabris.js documentation assume use this template.'
+    'Modern JavaScript, JSX and/or TypeScript.'
   ),
   new inquirer.Separator('   '),
   {
@@ -33,9 +34,14 @@ module.exports = class extends Generator {
   prompting() {
     return this.prompt([
       {
+        type: 'list',
+        name: 'tabris_version',
+        message: 'Tabris.js Version',
+        choices: ['3.x', '2.x']
+      }, {
         type: 'input',
         name: 'app_name',
-        message: 'App name',
+        message: 'App name as it appears on the device\'s home screen:\n',
         default: toName(this.appname)
       }, {
         type: 'input',
@@ -56,7 +62,7 @@ module.exports = class extends Generator {
         choices: IDE_TYPES
       }
     ]).then(answers => {
-      const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist/app.js';
+      const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist';
       const author_name = this.user.git.name() || 'John Smith';
       const author_email = this.user.git.email() || 'john@example.org';
       this._props = Object.assign(answers, {main, author_name, author_email});
@@ -64,6 +70,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    this.sourceRoot(path.join(path.dirname(this.resolved), 'templates-' + this._props.tabris_version));
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
@@ -127,7 +134,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(['tabris@>=3.0.0 || 3.0.0-rc1'], {
+    this.npmInstall(['tabris@' + this._props.tabris_version + ' || 3.0.0-rc1'], {
       save: true
     });
     if (this._props.proj_type === 'js') {
