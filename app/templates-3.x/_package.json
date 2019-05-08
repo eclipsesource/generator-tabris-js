@@ -6,8 +6,11 @@
     "test": "eslint .",
     "start": "tabris serve -a"
 <% } else if (proj_type === 'ts') { %>
-    "test": "npm run build && npm run lint",
+    "test": "npm run build && npm run lint<% if (tests === 'mocha') { %> && npm run mocha<% } %>",
     "lint": "tslint --project . -t verbose",
+    <% if (tests === 'mocha') { %>
+    "mocha" : "mocha --require ts-node/register ./test/*.test.*",
+    <% } %>
     "build": "tsc -p .",
     "watch": "tsc -p . -w --preserveWatchOutput --inlineSourceMap",
     "start": "tabris serve -a -w"

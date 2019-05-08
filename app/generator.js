@@ -29,6 +29,15 @@ const IDE_TYPES = [{
   value: 'vsc'
 }];
 
+const TEST_TYPES = [{
+  name: 'None',
+  value: 'none'
+}, {
+  name: 'Mocha with sinon/chai',
+  short: 'Mocha',
+  value: 'mocha',
+}];
+
 module.exports = class extends Generator {
 
   prompting() {
@@ -60,12 +69,19 @@ module.exports = class extends Generator {
         name: 'ide_type',
         message: 'Additional IDE configuration? (e.g. launch options)',
         choices: IDE_TYPES
+      }, {
+        name: 'tests',
+        type: 'list',
+        message: 'Configure unit tests?',
+        choices: TEST_TYPES,
+        when: answers => answers.proj_type === 'ts' && answers.tabris_version === '3.x'
       }
     ]).then(answers => {
       const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist';
       const author_name = this.user.git.name() || 'John Smith';
       const author_email = this.user.git.email() || 'john@example.org';
-      this._props = Object.assign(answers, {main, author_name, author_email});
+      const tests = answers.tests || 'none';
+      this._props = Object.assign(answers, {main, author_name, author_email, tests});
     });
   }
 
@@ -109,6 +125,13 @@ module.exports = class extends Generator {
         this.templatePath('ts/tslint.json'),
         this.destinationPath('tslint.json')
       );
+      if (this._props.tests === 'mocha') {
+        this.fs.copyTpl(
+          this.templatePath('ts/test'),
+          this.destinationPath('test'),
+          this._props
+        );
+      }
     } else if (this._props.proj_type === 'js') {
       this.fs.copyTpl(
         this.templatePath('js/_gitignore'),
@@ -143,6 +166,20 @@ module.exports = class extends Generator {
       });
     } else if (this._props.proj_type === 'ts') {
       this.npmInstall(['typescript', 'tslint'], {
+        saveDev: true
+      });
+    }
+    if (this._props.tests === 'mocha') {
+      this.npmInstall([
+        'mocha',
+        '@types/mocha',
+        'sinon',
+        'chai',
+        '@types/sinon',
+        'sinon-chai',
+        '@types/sinon-chai',
+        'ts-node'
+      ], {
         saveDev: true
       });
     }
