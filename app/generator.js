@@ -168,8 +168,10 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall(['tabris@' + this._props.tabris_version + ' || 3.0.0-rc1'], {
-      save: true
+    const version = this._props.tabris_install_version;
+    const preRelease = version.indexOf('-') !== -1;
+    this.npmInstall(['tabris@' + version], {
+      ['save' + (preRelease ? 'Exact' : 'Prod')]: true
     });
     if (this._props.proj_type === 'js') {
       this.npmInstall(['eslint'], {
