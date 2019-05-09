@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 const Generator = require('yeoman-generator');
 const {toAppId, toName, isValidAppId} = require('./utilities.js');
 
+const VERSION_REGEXP = /'([2-3]\..*)'/;
+
 const PROJECT_TYPES = [
   new inquirer.Separator('   '),
   {
@@ -81,7 +83,16 @@ module.exports = class extends Generator {
       const author_name = this.user.git.name() || 'John Smith';
       const author_email = this.user.git.email() || 'john@example.org';
       const tests = answers.tests || 'none';
-      this._props = Object.assign(answers, {main, author_name, author_email, tests});
+      const tabris_install_version = this._npmVersion('tabris@' + answers.tabris_version).pop();
+      const tabris_doc_url = 'https://tabrisjs.com/documentation/' + this._removePatch(tabris_install_version);
+      this._props = Object.assign(answers, {
+        main,
+        author_name,
+        author_email,
+        tests,
+        tabris_install_version,
+        tabris_doc_url
+      });
     });
   }
 
@@ -183,6 +194,24 @@ module.exports = class extends Generator {
         saveDev: true
       });
     }
+  }
+
+  _npmVersion(moduleId) {
+    if (moduleId === 'tabris@3.x') {
+      return ['3.0.0-rc1'];
+    }
+    return this.spawnCommandSync('npm', ['view', moduleId, 'version'], {stdio: 'pipe'}).stdout
+      .toString()
+      .split('\n')
+      .filter(entry => !!entry)
+      .sort()
+      .map(entry => VERSION_REGEXP.test(entry) ? VERSION_REGEXP.exec(entry).pop() : entry);
+  }
+
+  _removePatch(version) {
+    const [sem, postfix] = version.split('-');
+    const semPart = sem.split('.').slice(0, 2).join('.');
+    return semPart + (postfix ? '-' + postfix : '');
   }
 
 };

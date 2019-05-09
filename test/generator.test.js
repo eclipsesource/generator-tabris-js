@@ -71,6 +71,12 @@ describe('Generator (3.x, JS)', function() {
     expect(files).to.include('node_modules/');
   });
 
+  it('creates README.md with correct content', function() {
+    const readme = readFileSync('README.md', {encoding: 'utf-8'});
+    expect(readme).to.include('# foo');
+    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\-.*\/developer\-app\.html/);
+  });
+
   it('creates other files', function() {
     assert.file(['.eslintrc', 'src/app.js', '.vscode/tasks.json']);
   });
@@ -149,6 +155,12 @@ describe('Generator (3.x TS)', function() {
     expect(files).to.include('/dist/');
     expect(files).to.include('/build/');
     expect(files).to.include('node_modules/');
+  });
+
+  it('creates README.md with correct content', function() {
+    const readme = readFileSync('README.md', {encoding: 'utf-8'});
+    expect(readme).to.include('# foo');
+    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\-.*\/developer\-app\.html/);
   });
 
   it('creates other files', function() {
