@@ -83,7 +83,8 @@ module.exports = class extends Generator {
       const author_name = this.user.git.name() || 'John Smith';
       const author_email = this.user.git.email() || 'john@example.org';
       const tests = answers.tests || 'none';
-      const tabris_install_version = this._npmVersion('tabris@' + answers.tabris_version).pop();
+      const npmLabel = answers.tabris_version === '3.x' ? 'latest' : answers.tabris_version;
+      const tabris_install_version = this._npmVersion('tabris@' + npmLabel).pop();
       const tabris_doc_url = 'https://tabrisjs.com/documentation/' + this._removePatch(tabris_install_version);
       this._props = Object.assign(answers, {
         main,
@@ -169,17 +170,20 @@ module.exports = class extends Generator {
 
   install() {
     const version = this._props.tabris_install_version;
-    const preRelease = version.indexOf('-') !== -1;
     this.npmInstall(['tabris@' + version], {
-      ['save' + (preRelease ? 'Exact' : 'Prod')]: true
+      savePrefix: '~'
     });
     if (this._props.proj_type === 'js') {
       this.npmInstall(['eslint'], {
         saveDev: true
       });
     } else if (this._props.proj_type === 'ts') {
-      this.npmInstall(['typescript', 'tslint'], {
-        saveDev: true
+      this.npmInstall(['typescript@3.3.x'], {
+        saveDev: true,
+        savePrefix: '~'
+      });
+      this.npmInstall(['tslint'], {
+        saveDev: true,
       });
     }
     if (this._props.tests === 'mocha') {
@@ -199,9 +203,6 @@ module.exports = class extends Generator {
   }
 
   _npmVersion(moduleId) {
-    if (moduleId === 'tabris@3.x') {
-      return ['3.0.0-rc1'];
-    }
     return this.spawnCommandSync('npm', ['view', moduleId, 'version'], {stdio: 'pipe'}).stdout
       .toString()
       .split('\n')

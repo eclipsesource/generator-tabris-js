@@ -74,7 +74,7 @@ describe('Generator (3.x, JS)', function() {
   it('creates README.md with correct content', function() {
     const readme = readFileSync('README.md', {encoding: 'utf-8'});
     expect(readme).to.include('# foo');
-    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\-.*\/developer\-app\.html/);
+    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\/developer\-app\.html/);
   });
 
   it('creates other files', function() {
@@ -160,7 +160,7 @@ describe('Generator (3.x TS)', function() {
   it('creates README.md with correct content', function() {
     const readme = readFileSync('README.md', {encoding: 'utf-8'});
     expect(readme).to.include('# foo');
-    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\-.*\/developer\-app\.html/);
+    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\/developer\-app\.html/);
   });
 
   it('creates other files', function() {
