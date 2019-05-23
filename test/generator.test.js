@@ -93,7 +93,8 @@ describe('Generator (3.x TS)', function() {
       proj_type: 'ts',
       ide_type: 'vsc',
       app_name: 'foo',
-      tests: 'mocha'
+      tests: 'mocha',
+      example: 'tsx'
     });
   });
 

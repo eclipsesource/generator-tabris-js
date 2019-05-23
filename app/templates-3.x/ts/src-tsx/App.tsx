@@ -1,4 +1,4 @@
-import {Button, TextView, contentView} from 'tabris';
+import {Button, TextView, contentView, Constraint} from 'tabris';
 
 export class App {
 
@@ -6,7 +6,7 @@ export class App {
     contentView.append(
       <$>
         <Button center onSelect={this.showText}>Tap here</Button>
-        <TextView centerX bottom='prev() 20' font='24px'/>
+        <TextView centerX bottom={[Constraint.prev, 20]} font={{size: 24}}/>
       </$>
     );
   }

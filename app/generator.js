@@ -40,6 +40,24 @@ const TEST_TYPES = [{
   value: 'mocha',
 }];
 
+const EXAMPLE_APPS = [{
+  name: 'Minimal (JavaScript)',
+  short: 'Minimal/JS',
+  value: 'js'
+}, {
+  name: 'Minimal (JavaScript/JSX)',
+  short: 'Minimal/JSX',
+  value: 'jsx'
+}, {
+  name: 'Tiny (TypeScript/JSX)',
+  short: 'Tiny/TSX',
+  value: 'tsx'
+}, {
+  name: 'Model-View-Presenter (TypeScript/JSX/tabris-decorators)',
+  short: 'MVP/decorators',
+  value: 'mvp'
+}];
+
 module.exports = class extends Generator {
 
   prompting() {
@@ -72,11 +90,18 @@ module.exports = class extends Generator {
         message: 'Additional IDE configuration? (e.g. launch options)',
         choices: IDE_TYPES
       }, {
+        name: 'example',
+        type: 'list',
+        default: 'jsx',
+        message: 'Example Code',
+        choices: EXAMPLE_APPS,
+        when: answers => answers.proj_type === 'ts' && answers.tabris_version === '3.x'
+      }, {
         name: 'tests',
         type: 'list',
         message: 'Configure unit tests?',
         choices: TEST_TYPES,
-        when: answers => answers.proj_type === 'ts' && answers.tabris_version === '3.x'
+        when: answers => answers.example === 'tsx' || answers.example === 'mvp'
       }
     ]).then(answers => {
       const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist';
@@ -125,7 +150,7 @@ module.exports = class extends Generator {
         this.destinationPath('.gitignore')
       );
       this.fs.copyTpl(
-        this.templatePath('ts/src'),
+        this.templatePath(this._props.example ? 'ts/src-' + this._props.example : 'ts/src'),
         this.destinationPath('src'),
         this._props
       );
@@ -140,6 +165,11 @@ module.exports = class extends Generator {
       if (this._props.tests === 'mocha') {
         this.fs.copyTpl(
           this.templatePath('ts/test'),
+          this.destinationPath('test'),
+          this._props
+        );
+        this.fs.copyTpl(
+          this.templatePath('ts/test-' + this._props.example),
           this.destinationPath('test'),
           this._props
         );
@@ -173,6 +203,11 @@ module.exports = class extends Generator {
     this.npmInstall(['tabris@' + version], {
       savePrefix: '~'
     });
+    if (this._props.example === 'mvp') {
+      this.npmInstall(['tabris-decorators@' + version], {
+        savePrefix: '~'
+      });
+    }
     if (this._props.proj_type === 'js') {
       this.npmInstall(['eslint'], {
         saveDev: true
@@ -200,6 +235,10 @@ module.exports = class extends Generator {
         saveDev: true
       });
     }
+  }
+
+  end() {
+    console.log('Please check out README.md, or just type "npm start" to start :-)');
   }
 
   _npmVersion(moduleId) {
