@@ -53,9 +53,13 @@ const EXAMPLE_APPS = [{
   short: 'Tiny/TSX',
   value: 'tsx'
 }, {
-  name: 'Model-View-Presenter (TypeScript/JSX/tabris-decorators)',
-  short: 'MVP/decorators',
+  name: 'Model-View-Presenter (TypeScript/JSX/decorators)',
+  short: 'MVP',
   value: 'mvp'
+}, {
+  name: 'Model-View-ViewModel (TypeScript/JSX/decorators)',
+  short: 'MVVM',
+  value: 'mvvm'
 }];
 
 module.exports = class extends Generator {
@@ -101,7 +105,7 @@ module.exports = class extends Generator {
         type: 'list',
         message: 'Configure unit tests?',
         choices: TEST_TYPES,
-        when: answers => answers.example === 'tsx' || answers.example === 'mvp'
+        when: answers => answers.example === 'tsx' || answers.example === 'mvp' || answers.example === 'mvvm'
       }
     ]).then(answers => {
       const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist';
@@ -203,7 +207,7 @@ module.exports = class extends Generator {
     this.npmInstall(['tabris@' + version], {
       savePrefix: '~'
     });
-    if (this._props.example === 'mvp') {
+    if (this._props.example === 'mvp' || this._props.example === 'mvvm') {
       this.npmInstall(['tabris-decorators@' + version], {
         savePrefix: '~'
       });
