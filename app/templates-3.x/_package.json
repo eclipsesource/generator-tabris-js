@@ -11,8 +11,8 @@
     <% if (tests === 'mocha') { %>
     "mocha" : "mocha --require ts-node/register ./test/*.test.*",
     <% } %>
-    "build": "node_modules/typescript/bin/tsc -p .",
-    "watch": "node_modules/typescript/bin/tsc -p . -w --preserveWatchOutput --inlineSourceMap",
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w --preserveWatchOutput --inlineSourceMap",
     "start": "tabris serve -a -w"
  <% } %>
   }

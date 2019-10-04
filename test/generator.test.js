@@ -108,11 +108,9 @@ describe('Generator (3.x TS)', function() {
     expect(json.scripts.lint).to.equal('tslint --project . -t verbose');
     expect(json.scripts.test).to.equal('npm run build && npm run lint && npm run mocha');
     expect(json.scripts.mocha).to.equal('mocha --require ts-node/register ./test/*.test.*');
-    expect(json.scripts.build).to.equal('node_modules/typescript/bin/tsc -p .');
+    expect(json.scripts.build).to.equal('tsc -p .');
     expect(json.scripts.start).to.equal('tabris serve -a -w');
-    expect(json.scripts.watch).to.equal(
-      'node_modules/typescript/bin/tsc -p . -w --preserveWatchOutput --inlineSourceMap'
-    );
+    expect(json.scripts.watch).to.equal('tsc -p . -w --preserveWatchOutput --inlineSourceMap');
   });
 
   it('creates extensions.json with correct content', function() {
