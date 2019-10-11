@@ -18,7 +18,6 @@
     "promise-function-async": true,
     "no-floating-promises": true,
     "encoding": true,
-    "linebreak-style": true,
     "no-invalid-this": true,
     "no-unbound-method": true,
     "no-any": true,
