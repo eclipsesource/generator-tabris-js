@@ -114,7 +114,7 @@ module.exports = class extends Generator {
       const tests = answers.tests || 'none';
       const npmLabel = answers.tabris_version === '3.x' ? 'latest' : answers.tabris_version;
       const tabris_install_version = this._npmVersion('tabris@' + npmLabel).pop();
-      const tabris_doc_url = 'https://tabrisjs.com/documentation/' + this._removePatch(tabris_install_version);
+      const tabris_doc_url = 'https://docs.tabris.com/' + this._removePatch(tabris_install_version);
       this._props = Object.assign(answers, {
         main,
         author_name,

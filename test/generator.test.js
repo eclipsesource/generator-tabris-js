@@ -43,7 +43,10 @@ describe('Generator (3.x, JS)', function() {
 
   it('creates launch.json with correct content', function() {
     const json = JSON.parse(readFileSync('.vscode/launch.json', {encoding: 'utf-8'}));
-    expect(json).to.deep.equal({version: '0.2.0', configurations: []});
+    expect(json.version).to.equal('0.2.0');
+    expect(json.configurations[0].name).to.equal('Debug Tabris on Android');
+    expect(json.configurations[0].address).to.equal('${input:debugAddress}');
+    expect(json.inputs[0].id).to.equal('debugAddress');
   });
 
   it('creates settings.json with correct content', function() {
@@ -74,7 +77,14 @@ describe('Generator (3.x, JS)', function() {
   it('creates README.md with correct content', function() {
     const readme = readFileSync('README.md', {encoding: 'utf-8'});
     expect(readme).to.include('# foo');
-    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\/developer\-app\.html/);
+    expect(readme).to.include('## Run');
+    expect(readme).to.include('## Test');
+    expect(readme).to.include('## Debugging');
+    expect(readme).to.include('## Build');
+    expect(readme).not.to.include('unit tests');
+    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/developer\-app\.html/);
+    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
+    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
   });
 
   it('creates other files', function() {
@@ -123,7 +133,7 @@ describe('Generator (3.x TS)', function() {
 
   it('creates launch.json with correct content', function() {
     const json = JSON.parse(readFileSync('.vscode/launch.json', {encoding: 'utf-8'}));
-    expect(json.configurations.length).to.equal(2);
+    expect(json.configurations.length).to.equal(3);
   });
 
   it('creates settings.json with correct content', function() {
@@ -161,7 +171,17 @@ describe('Generator (3.x TS)', function() {
   it('creates README.md with correct content', function() {
     const readme = readFileSync('README.md', {encoding: 'utf-8'});
     expect(readme).to.include('# foo');
-    expect(readme).to.match(/https\:\/\/tabrisjs\.com\/documentation\/3\.[0-9]\/developer\-app\.html/);
+    expect(readme).to.include('## Run');
+    expect(readme).to.include('## Test');
+    expect(readme).to.include('## Debugging');
+    expect(readme).to.include('## Build');
+    expect(readme).to.include(
+      '\n\nTabris.js unit tests support any debugger that works with Node.js. In Visual '
+    );
+    expect(readme).to.include('in the debug sidebar.\n\n#');
+    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/developer\-app\.html/);
+    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
+    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
   });
 
   it('creates other files', function() {

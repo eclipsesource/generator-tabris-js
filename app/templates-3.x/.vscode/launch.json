@@ -1,6 +1,30 @@
 {
   "version": "0.2.0",
-  "configurations": [<% if (tests === 'mocha') { %>
+  "inputs": [
+    {
+      "id": "debugAddress",
+      "type": "promptString",
+      "default": "localhost",
+      "description": "IP Address of Android Device"
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Debug Tabris on Android",
+      "type": "node",
+      "protocol": "inspector",
+      "request": "attach",
+      "port": 9090,
+      "address": "${input:debugAddress}",
+      "stopOnEntry": false,
+      "cwd": "${workspaceFolder}",
+      "trace": true,
+      "sourceMaps": true,
+      "restart": true,
+      "skipFiles": [
+        "node_modules/**/*.js"
+      ]
+    }<% if (tests === 'mocha') { %>,
     {
       "type": "node",
       "request": "launch",

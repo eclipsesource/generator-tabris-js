@@ -62,6 +62,19 @@ npm test
 
 <% } %>The initial rules defined in `<%- proj_type === 'ts' ? 'tslint.json' : '.eslintrc' %>` are supposed to warn against problematic patterns, but do not enforce a specific code style. You may want to [adjust them](<%- proj_type === 'ts' ? 'https://palantir.github.io/tslint/rules/' : 'https://eslint.org/docs/rules/' %>) according to your taste.
 <% } %>
+## Debugging
+
+
+### Android
+
+<% if (ide_type === 'vsc') { %>To debug your application running on an Android device, first click the debug icon on the Visual Studio Code activity bar. This opens the debug side bar where you can launch the configuration "Debug Tabris on Android" and enter the device's IP address.<% } else { %>Tabris on Android supports any debugger that uses the V8 inspector protocol. This includes Visual Studio Code, WebStorm and the Chrome Browser.<% } %> More information can be found [here](<%- tabris_doc_url %>/debug.html#android).
+
+### iOS
+
+On iOS, the Safari developer tools [can be used for debugging](<%- tabris_doc_url %>/debug.html#ios).<% if (tests === 'mocha') { %>
+
+Tabris.js unit tests support any debugger that works with Node.js.<% if (ide_type === 'vsc') { %> In Visual Studio Code, the focused unit test file can be debugged by launching "Mocha Current File" in the debug sidebar.
+<% } %><% } %>
 ## Build
 
 The app can be built using the online build service at [tabrisjs.com](https://tabrisjs.com) or locally using [Tabris.js CLI](https://www.npmjs.com/package/tabris-cli).
