@@ -1,21 +1,47 @@
 {
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module"
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true,
+      "arrowFunctions": true
+    }
   },
   "env": {
     "es6": true,
     "commonjs": true
   },
+  "globals": {
+    "tabris": false,
+    "$": false,
+    "JSX": false,
+    "localStorage": false,
+    "XMLHttpRequest": false,
+    "fetch": false,
+    "device": false,
+    "ImageData": false,
+    "Worker": false,
+    "onmessage": true,
+    "postMessage": false,
+    "console": false,
+    "global": false,
+    "__dirname": false,
+    "setTimeout": false,
+    "module": false,
+    "createImageBitmap": false,
+    "require": false,
+    "FormData": false
+  },
   "rules": {
     "eol-last": "warn",
     "eqeqeq": ["warn", "allow-null"],
     "linebreak-style": ["warn", "unix"],
+    "no-trailing-spaces": "warn",
     "no-console": "off",
     "no-var": "warn",
-    "no-with": "warn",
     "prefer-const": "warn",
+    "no-use-before-define": "off",
     "prefer-arrow-callback": ["warn", {
       "allowNamedFunctions": true,
       "allowUnboundThis": false

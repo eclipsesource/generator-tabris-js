@@ -46,13 +46,13 @@ npm run mocha
 
 <% if (ide_type === 'vsc') { %>With the [Mocha Test Explorer](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-mocha-test-adapter) extensions individual tests can be triggered and monitored directly in Visual Studio Code.
 
-<% } %>This project also includes a TSLint configuration that helps preventing common mistakes in your code. Most IDEs can display TSLint-based hints directly in the editor, but you can also run the tool explicitly via:
+<% } %>This project also includes a ESLint configuration that helps preventing common mistakes in your code. Most IDEs can display ESLint-based hints directly in the editor, but you can also run the tool explicitly via:
 
 ```
 npm run lint
 ```
 <% } else { %>
-This project includes a <%- proj_type === 'ts' ? 'TSLint' : 'ESLint' %> configuration that helps preventing common mistakes in your code. Most IDEs can display <%- proj_type === 'ts' ? 'TSLint' : 'ESLint' %>-based hints directly in the editor, but you can also run the tool explicitly via:
+This project includes a ESLint configuration that helps preventing common mistakes in your code. Most IDEs can display ESLint-based hints directly in the editor, but you can also run the tool explicitly via:
 
 ```
 npm test
@@ -60,7 +60,7 @@ npm test
 
 <% if (proj_type === 'ts') { %>This will also check for compile errors.
 
-<% } %>The initial rules defined in `<%- proj_type === 'ts' ? 'tslint.json' : '.eslintrc' %>` are supposed to warn against problematic patterns, but do not enforce a specific code style. You may want to [adjust them](<%- proj_type === 'ts' ? 'https://palantir.github.io/tslint/rules/' : 'https://eslint.org/docs/rules/' %>) according to your taste.
+<% } %>The initial rules defined in `.eslintrc` are supposed to warn against problematic patterns, but not enforce a strict code style. You may want to [adjust them](https://eslint.org/docs/rules/) according to your taste.<% if (proj_type === 'ts') { %> TypeScript specific rules are documented [here](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) and JSX-Syntax specific rules [here](https://github.com/yannickcr/eslint-plugin-react). These can only be used in the dedicated `override` section of `.eslintrc`.<% } %>
 <% } %>
 ## Debugging
 

@@ -158,8 +158,9 @@ module.exports = class extends Generator {
         this.destinationPath('tsconfig.json')
       );
       this.fs.copyTpl(
-        this.templatePath('ts/tslint.json'),
-        this.destinationPath('tslint.json')
+        this.templatePath('ts/_.eslintrc'),
+        this.destinationPath('.eslintrc'),
+        this._props
       );
       if (this._props.tests === 'mocha') {
         this.fs.copyTpl(
@@ -179,13 +180,13 @@ module.exports = class extends Generator {
         this.destinationPath('.gitignore')
       );
       this.fs.copyTpl(
-        this.templatePath('js/.eslintrc'),
-        this.destinationPath('.eslintrc')
-      );
-      this.fs.copyTpl(
         this.templatePath('js/src'),
         this.destinationPath('src'),
         this._props
+      );
+      this.fs.copyTpl(
+        this.templatePath('js/.eslintrc'),
+        this.destinationPath('.eslintrc')
       );
     }
     if (this._props.ide_type === 'vsc') {
@@ -207,16 +208,19 @@ module.exports = class extends Generator {
         savePrefix: '~'
       });
     }
-    if (this._props.proj_type === 'js') {
-      this.npmInstall(['eslint'], {
-        saveDev: true
-      });
-    } else if (this._props.proj_type === 'ts') {
+    this.npmInstall(['eslint'], {
+      saveDev: true
+    });
+    if (this._props.proj_type === 'ts') {
       this.npmInstall(['typescript@3.3.x'], {
         saveDev: true,
         savePrefix: '~'
       });
-      this.npmInstall(['tslint'], {
+      this.npmInstall([
+        '@typescript-eslint/parser',
+        '@typescript-eslint/eslint-plugin',
+        'eslint-plugin-react'
+      ], {
         saveDev: true
       });
     }

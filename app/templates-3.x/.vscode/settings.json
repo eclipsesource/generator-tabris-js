@@ -1,8 +1,7 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "javascript.implicitProjectConfig.experimentalDecorators": true,
-  "tslint.jsEnable": <%- proj_type === 'ts'%>,
-  "eslint.enable": <%- proj_type === 'js'%><% if (tests === 'mocha') { %>,
+  "eslint.enable": true<% if (tests === 'mocha') { %>,
   "mochaExplorer.require": "ts-node/register",
   "mochaExplorer.files": "test/**/*.test.*"<% } %>
 }

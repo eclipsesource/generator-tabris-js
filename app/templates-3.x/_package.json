@@ -7,7 +7,7 @@
     "start": "tabris serve -a"
 <% } else if (proj_type === 'ts') { %>
     "test": "npm run build && npm run lint<% if (tests === 'mocha') { %> && npm run mocha<% } %>",
-    "lint": "tslint --project . -t verbose",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src<% if (tests === 'mocha') { %> test<% } %>",
     <% if (tests === 'mocha') { %>
     "mocha" : "mocha --require ts-node/register ./test/*.test.*",
     <% } %>

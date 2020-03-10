@@ -32,7 +32,7 @@
       "type": "npm",
       "script": "lint",
       "problemMatcher": [
-        "$tslint5"
+        "$eslint-stylish"
       ]
     },<% } %>
     {
@@ -43,9 +43,8 @@
         "isDefault": true
       },
       "problemMatcher": [<% if (proj_type === 'ts') { %>
-        "$tslint5",
-        "$tsc"<% } else { %>
-        "$eslint-stylish"<% } %>
+        "$eslint-stylish",
+        "$tsc"<% } %>
       ]
     }
   ]
