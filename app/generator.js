@@ -67,11 +67,6 @@ module.exports = class extends Generator {
   prompting() {
     return this.prompt([
       {
-        type: 'list',
-        name: 'tabris_version',
-        message: 'Tabris.js Version',
-        choices: ['3.x', '2.x']
-      }, {
         type: 'input',
         name: 'app_name',
         message: 'App name as it appears on the device\'s home screen:\n',
@@ -99,7 +94,7 @@ module.exports = class extends Generator {
         default: 'jsx',
         message: 'Example Code',
         choices: EXAMPLE_APPS,
-        when: answers => answers.proj_type === 'ts' && answers.tabris_version === '3.x'
+        when: answers => answers.proj_type === 'ts'
       }, {
         name: 'tests',
         type: 'list',
@@ -112,7 +107,7 @@ module.exports = class extends Generator {
       const author_name = this.user.git.name() || 'John Smith';
       const author_email = this.user.git.email() || 'john@example.org';
       const tests = answers.tests || 'none';
-      const npmLabel = answers.tabris_version === '3.x' ? 'latest' : answers.tabris_version;
+      const npmLabel = 'latest';
       const tabris_install_version = this._npmVersion('tabris@' + npmLabel).pop();
       const tabris_doc_url = 'https://docs.tabris.com/' + this._removePatch(tabris_install_version);
       this._props = Object.assign(answers, {
@@ -127,7 +122,7 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.sourceRoot(path.join(path.dirname(this.resolved), 'templates-' + this._props.tabris_version));
+    this.sourceRoot(path.join(path.dirname(this.resolved), 'templates-3.x'));
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),

@@ -1,6 +1,0 @@
-{
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "javascript.implicitProjectConfig.experimentalDecorators": true,
-  "tslint.jsEnable": <%- proj_type === 'ts'%>,
-  "eslint.enable": <%- proj_type === 'js'%>
-}
