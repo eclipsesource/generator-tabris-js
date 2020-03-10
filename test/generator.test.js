@@ -81,9 +81,9 @@ describe('Generator (3.x, JS)', function() {
     expect(readme).to.include('## Debugging');
     expect(readme).to.include('## Build');
     expect(readme).not.to.include('unit tests');
-    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/developer\-app\.html/);
-    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
-    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
+    expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/developer-app\.html/);
+    expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
+    expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
   });
 
   it('creates other files', function() {
@@ -177,9 +177,9 @@ describe('Generator (3.x TS)', function() {
       '\n\nTabris.js unit tests support any debugger that works with Node.js. In Visual '
     );
     expect(readme).to.include('in the debug sidebar.\n\n#');
-    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/developer\-app\.html/);
-    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
-    expect(readme).to.match(/https\:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
+    expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/developer-app\.html/);
+    expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
+    expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
   });
 
   it('creates other files', function() {

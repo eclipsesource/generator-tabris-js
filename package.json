@@ -28,11 +28,13 @@
     "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.17.1",
-    "mocha": "^5.2.0",
-    "tslint": "^4.5.1",
     "typescript": "^2.2.1",
+    "eslint": "^6.x.x",
+    "eslint-plugin-react": "^7.18.3",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "chai": "^3.5.0",
+    "mocha": "^5.2.0",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
@@ -41,7 +43,7 @@
   },
   "engine-strict": true,
   "scripts": {
-    "lint": "eslint . && tslint 'app/**/*.ts'",
+    "lint": "eslint --color --f visualstudio --ext .js,.jsx,.ts,.tsx .",
     "test": "mocha",
     "posttest": "npm run lint",
     "test-watch": "mocha --watch --growl"

@@ -13,6 +13,6 @@ export class App {
 
   private showText = () => {
     $(TextView).only().text = 'Tabris.js rocks!';
-  }
+  };
 
 }

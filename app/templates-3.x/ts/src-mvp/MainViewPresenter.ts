@@ -13,7 +13,7 @@ export class MainViewPresenter {
 
   private handleContinue = () => {
     this.view.message = 'Tabris.js rocks!';
-  }
+  };
 
 }
 

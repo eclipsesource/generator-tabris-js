@@ -10,7 +10,7 @@ const PROJECT_TYPES = [
   {
     name: 'Compiled (recommended)',
     short: 'Compiled',
-    value: 'ts',
+    value: 'ts'
   },
   new inquirer.Separator(
     'Modern JavaScript, JSX and/or TypeScript.'
@@ -37,7 +37,7 @@ const TEST_TYPES = [{
 }, {
   name: 'Mocha with sinon/chai',
   short: 'Mocha',
-  value: 'mocha',
+  value: 'mocha'
 }];
 
 const EXAMPLE_APPS = [{
@@ -217,7 +217,7 @@ module.exports = class extends Generator {
         savePrefix: '~'
       });
       this.npmInstall(['tslint'], {
-        saveDev: true,
+        saveDev: true
       });
     }
     if (this._props.tests === 'mocha') {

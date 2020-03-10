@@ -9,7 +9,7 @@ function toAppId(user, appname) {
   return user.github.username()
     .catch(() => user.git.email() ? user.git.email().split('@')[0] : null)
     .then(username => username || 'org.example')
-    .then(domain => domain + '.' + appname.replace(/\s+/g, '').replace(/\-+/g, '').toLowerCase())
+    .then(domain => domain + '.' + appname.replace(/\s+/g, '').replace(/-+/g, '').toLowerCase())
     .catch(error => {
       console.log(error);
       return '';
@@ -17,8 +17,8 @@ function toAppId(user, appname) {
 }
 
 function toName(string) {
-  return string.split(/[-_\.\s]+/)
-    .filter(string => !!string)
+  return string.split(/[-_.\s]+/)
+    .filter(part => !!part)
     .map(word => word.charAt(0).toUpperCase() + word.substr(1))
     .join(' ');
 }
