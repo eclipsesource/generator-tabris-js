@@ -16,19 +16,21 @@ describe('Generator', function() {
     runContext.cleanTestDirectory();
   });
 
-  async function runGenerator({type: proj_type, keepNodeModules: keep, example, tests}) {
+  async function runGenerator({type, keepNodeModules: keep, example, tests}) {
     const oldContext = runContext;
     const oldModules = join(process.cwd(), 'node_modules');
+    const config = ['vsc'];
+    if (tests) {
+      config.push('mocha');
+    }
     runContext = helpers.run(join(__dirname, '../app')).withOptions({
       skipInstall: !!keep,
       forceInstall: true,
       force: true
     }).withPrompts({
-      proj_type,
-      ide_type: 'vsc',
       app_name: 'foo',
-      tests: tests ? 'mocha' : 'none',
-      example: example || 'tsx'
+      config,
+      template: type === 'js' ? 'js' : example || 'tsx'
     });
     await runContext;
     if (keep) {

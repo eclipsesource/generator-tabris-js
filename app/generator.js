@@ -1,123 +1,84 @@
 const path = require('path');
-const inquirer = require('inquirer');
 const Generator = require('yeoman-generator');
 const {toAppId, toName, isValidAppId} = require('./utilities.js');
 
 const VERSION_REGEXP = /'([2-3]\..*)'/;
 
-const PROJECT_TYPES = [
-  new inquirer.Separator('   '),
-  {
-    name: 'Compiled (recommended)',
-    short: 'Compiled',
-    value: 'ts'
-  },
-  new inquirer.Separator(
-    'Modern JavaScript, JSX and/or TypeScript.'
-  ),
-  new inquirer.Separator('   '),
-  {
-    name: 'Vanilla',
-    value: 'js'
-  },
-  new inquirer.Separator('Runs JavaScript files as-is. No ES6 Modules, async/await or JSX.')
-];
-
-const IDE_TYPES = [{
-  name: 'None',
-  value: 'none'
+const TEMPLATES = [{
+  name: 'Model-View-ViewModel (TypeScript/JSX)',
+  value: 'mvvm'
 }, {
-  name: 'Visual Studio Code',
-  value: 'vsc'
-}];
-
-const TEST_TYPES = [{
-  name: 'None',
-  value: 'none'
-}, {
-  name: 'Mocha with sinon/chai',
-  short: 'Mocha',
-  value: 'mocha'
-}];
-
-const EXAMPLE_APPS = [{
-  name: 'Minimal (JavaScript)',
-  short: 'Minimal/JS',
-  value: 'js'
-}, {
-  name: 'Minimal (JavaScript/JSX)',
-  short: 'Minimal/JSX',
-  value: 'jsx'
-}, {
-  name: 'Tiny (TypeScript/JSX)',
-  short: 'Tiny/TSX',
-  value: 'tsx'
-}, {
-  name: 'Model-View-Presenter (TypeScript/JSX/decorators)',
-  short: 'MVP',
+  name: 'Model-View-Presenter (TypeScript/JSX)',
   value: 'mvp'
 }, {
-  name: 'Model-View-ViewModel (TypeScript/JSX/decorators)',
-  short: 'MVVM',
-  value: 'mvvm'
+  name: 'Hello World (TypeScript/JSX)',
+  value: 'tsx'
+}, {
+  name: 'Hello World (JavaScript/JSX)',
+  value: 'jsx'
+}, {
+  name: 'Hello World (JavaScript)',
+  value: 'js'
 }];
+
+const CONFIG = [
+  {
+    name: 'Visual Studio Code configuration',
+    short: 'VS Code',
+    value: 'vsc',
+    checked: true
+  }, {
+    name: 'Set up unit tests with Mocha',
+    short: 'Mocha',
+    value: 'mocha',
+    disabled: ({template}) =>
+      (!template || template.startsWith('js')) ? 'Disabled: TypeScript only' : false
+  }
+];
 
 module.exports = class extends Generator {
 
   prompting() {
-    return this.prompt([
-      {
-        type: 'input',
-        name: 'app_name',
-        message: 'App name as it appears on the device\'s home screen:\n',
-        default: toName(this.appname)
-      }, {
-        type: 'input',
-        name: 'app_id',
-        message: 'App ID',
-        default: answers => toAppId(this.user, answers.app_name),
-        validate: input => isValidAppId(input) ||
-          'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
-      }, {
-        type: 'list',
-        name: 'proj_type',
-        message: 'Type of project?',
-        choices: PROJECT_TYPES
-      }, {
-        type: 'list',
-        name: 'ide_type',
-        message: 'Additional IDE configuration? (e.g. launch options)',
-        choices: IDE_TYPES
-      }, {
-        name: 'example',
-        type: 'list',
-        default: 'jsx',
-        message: 'Example Code',
-        choices: EXAMPLE_APPS,
-        when: answers => answers.proj_type === 'ts'
-      }, {
-        name: 'tests',
-        type: 'list',
-        message: 'Configure unit tests?',
-        choices: TEST_TYPES,
-        when: answers => answers.example === 'tsx' || answers.example === 'mvp' || answers.example === 'mvvm'
-      }
+    return this.prompt([{
+      name: 'template',
+      type: 'list',
+      default: 'jsx',
+      message: 'Template',
+      choices: TEMPLATES
+    }, {
+      type: 'input',
+      name: 'app_name',
+      message: 'App name as it appears on the device\'s home screen:\n',
+      default: toName(this.appname)
+    }, {
+      type: 'input',
+      name: 'app_id',
+      message: 'App ID',
+      default: answers => toAppId(this.user, answers.app_name),
+      validate: input => isValidAppId(input) ||
+        'Invalid App ID, use alphanumeric characters and periods only, EG: com.domain.app'
+    }, {
+      type: 'checkbox',
+      name: 'config',
+      message: 'Additional options',
+      choices: CONFIG
+    }
     ]).then(answers => {
-      const main = answers.proj_type === 'js' ? 'src/app.js' : 'dist';
-      const author_name = this.user.git.name() || 'John Smith';
-      const author_email = this.user.git.email() || 'john@example.org';
-      const tests = answers.tests || 'none';
-      const npmLabel = 'latest';
-      const tabris_install_version = this._npmVersion('tabris@' + npmLabel).pop();
-      const tabris_doc_url = 'https://docs.tabris.com/' + this._removePatch(tabris_install_version);
-      this._props = Object.assign(answers, {
-        main,
-        author_name,
-        author_email,
-        tests,
-        tabris_install_version,
-        tabris_doc_url
-      });
+      const tsc = !answers.template.startsWith('js');
+      const tabrisLatest = this._npmVersion('tabris@latest').pop();
+      this._props = {
+        app_id: answers.app_id,
+        example: answers.template,
+        app_name: answers.app_name,
+        proj_type: tsc ? 'ts' : 'js',
+        main: tsc ? 'dist' : 'src/app.js',
+        author_name: this.user.git.name() || 'John Smith',
+        author_email: this.user.git.email() || 'john@example.org',
+        tests: answers.config.indexOf('mocha') !== -1 ? 'mocha' : 'none',
+        ide_type: answers.config.indexOf('vsc') !== -1 ? 'vsc' : 'none',
+        tabris_install_version: tabrisLatest,
+        tabris_doc_url: 'https://docs.tabris.com/' + this._removePatch(tabrisLatest)
+      };
     });
   }
 
