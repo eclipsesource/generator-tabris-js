@@ -12,5 +12,4 @@ test/
 <% } -%>
 node_modules/**/*.d.ts
 node_modules/tabris/ClientMock.js
-package-lock.json
 README.md

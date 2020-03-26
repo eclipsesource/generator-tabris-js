@@ -89,8 +89,8 @@ describe('Generator', function() {
       expect(files).to.include('.vscode/');
       expect(files).to.include('node_modules/**/*.d.ts');
       expect(files).to.include('node_modules/tabris/ClientMock.js');
-      expect(files).to.include('package-lock.json');
       expect(files).to.include('README.md');
+      expect(files).not.to.include('package-lock.json');
     });
 
     it('creates .gitignore with correct content', function() {
@@ -173,8 +173,8 @@ describe('Generator', function() {
         expect(files).to.include('.vscode/');
         expect(files).to.include('node_modules/**/*.d.ts');
         expect(files).to.include('node_modules/tabris/ClientMock.js');
-        expect(files).to.include('package-lock.json');
         expect(files).to.include('README.md');
+        expect(files).not.to.include('package-lock.json');
       });
 
       it('creates .gitignore with correct content', function() {
@@ -297,8 +297,8 @@ describe('Generator', function() {
         expect(files).to.include('.vscode/');
         expect(files).to.include('node_modules/**/*.d.ts');
         expect(files).to.include('node_modules/tabris/ClientMock.js');
-        expect(files).to.include('package-lock.json');
         expect(files).to.include('README.md');
+        expect(files).not.to.include('package-lock.json');
       });
 
       it('creates .gitignore with correct content', function() {
