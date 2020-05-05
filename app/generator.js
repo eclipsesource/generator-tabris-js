@@ -173,7 +173,7 @@ module.exports = class extends Generator {
       saveDev: true
     });
     if (this._props.proj_type === 'ts') {
-      this.npmInstall(['typescript@3.3.x'], {
+      this.npmInstall(['typescript@3.8.x'], {
         saveDev: true,
         savePrefix: '~'
       });
