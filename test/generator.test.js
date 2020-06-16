@@ -123,7 +123,99 @@ describe('Generator', function() {
 
   });
 
-  describe('generates TypeScript-compiled projects', function() {
+  describe('generates tsc-compiled JavaScript/JSX projects', function() {
+
+    before(() => runGenerator({type: 'ts', example: 'jsx'}));
+
+    it('creates config.xml with correct id and version', function() {
+      assert.fileContent('cordova/config.xml', /<widget id=".+.foo" version="0.1.0">/);
+    });
+
+    it('creates package.json with correct content', function() {
+      const json = JSON.parse(readFileSync('package.json', {encoding: 'utf-8'}));
+      expect(json.main).to.equal('dist');
+      expect(json.scripts.lint).to.equal('eslint --ext .js,.jsx,.ts,.tsx src');
+      expect(json.scripts.test).to.equal('npm run build && npm run lint');
+      expect(json.scripts.mocha).to.be.undefined;
+      expect(json.scripts.build).to.equal('tsc -p .');
+      expect(json.scripts.start).to.equal('tabris serve -a -w');
+      expect(json.scripts.watch).to.equal('tsc -p . -w --preserveWatchOutput --inlineSourceMap');
+    });
+
+    it('creates extensions.json with correct content', function() {
+      const json = JSON.parse(readFileSync('.vscode/extensions.json', {encoding: 'utf-8'}));
+      expect(json.recommendations).to.deep.equal(['dbaeumer.vscode-eslint']);
+    });
+
+    it('creates launch.json with correct content', function() {
+      const json = JSON.parse(readFileSync('.vscode/launch.json', {encoding: 'utf-8'}));
+      expect(json.configurations.length).to.equal(1);
+    });
+
+    it('creates settings.json with correct content', function() {
+      const json = JSON.parse(readFileSync('.vscode/settings.json', {encoding: 'utf-8'}));
+      expect(json).to.deep.equal({
+        'typescript.tsdk': 'node_modules/typescript/lib',
+        'javascript.implicitProjectConfig.experimentalDecorators': true,
+        'eslint.enable': true
+      });
+    });
+
+    it('creates .tabrisignore with correct content', function() {
+      const files = readFileSync('.tabrisignore', {encoding: 'utf-8'}).split('\n');
+      expect(files).to.include('src/');
+      expect(files).to.not.include('test/');
+      expect(files).to.include('.eslintrc');
+      expect(files).to.include('tsconfig.json');
+      expect(files).to.include('.gitignore');
+      expect(files).to.include('.vscode/');
+      expect(files).to.include('node_modules/**/*.d.ts');
+      expect(files).to.include('node_modules/tabris/ClientMock.js');
+      expect(files).to.include('README.md');
+      expect(files).not.to.include('package-lock.json');
+    });
+
+    it('creates .gitignore with correct content', function() {
+      const files = readFileSync('.gitignore', {encoding: 'utf-8'}).split('\n');
+      expect(files).to.include('/dist/');
+      expect(files).to.include('/build/');
+      expect(files).to.include('node_modules/');
+    });
+
+    it('creates README.md with correct content', function() {
+      const readme = readFileSync('README.md', {encoding: 'utf-8'});
+      expect(readme).to.include('# foo');
+      expect(readme).to.include('## Run');
+      expect(readme).to.include('## Test');
+      expect(readme).to.include('## Debugging');
+      expect(readme).to.include('## Build');
+      expect(readme).not.to.include('unit tests');
+      expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/developer-app\.html/);
+      expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#android/);
+      expect(readme).to.match(/https:\/\/docs\.tabris\.com\/3\.[0-9]\/debug\.html#ios/);
+    });
+
+    it('creates other files', function() {
+      assert.file([
+        '.eslintrc',
+        'src/index.jsx',
+        '.vscode/tasks.json'
+      ]);
+      assert.noFile([
+        'test/tsconfig.json',
+        'test/sandbox.ts',
+        'test/sandbox.test.ts',
+        'test/App.test.ts'
+      ]);
+    });
+
+    it('lints jsx example', async function() {
+      expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+    });
+
+  });
+
+  describe('generates TypeScript projects', function() {
 
     describe('without mocha tests', function() {
 
@@ -211,12 +303,6 @@ describe('Generator', function() {
           'test/App.test.ts'
         ]);
       });
-
-      it('lints js example', async function() {
-        await runGenerator({type: 'ts', example: 'js', keepNodeModules: true});
-        expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
-      });
-
       it('lints jsx example', async function() {
         await runGenerator({type: 'ts', example: 'jsx', keepNodeModules: true});
         expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
