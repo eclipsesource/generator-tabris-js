@@ -64,7 +64,7 @@ module.exports = class extends Generator {
       choices: CONFIG
     }
     ]).then(answers => {
-      const tsc = !answers.template.startsWith('js');
+      const tsc = answers.template !== 'js';
       const tabrisLatest = this._npmVersion('tabris@latest').pop();
       this._props = {
         app_id: answers.app_id,
