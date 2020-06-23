@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "typescript": "^3.8.x",
-    "eslint": "^6.x.x",
-    "eslint-plugin-react": "^7.18.3",
-    "@typescript-eslint/eslint-plugin": "^2.18.0",
-    "@typescript-eslint/parser": "^2.18.0",
+    "eslint": "latest",
+    "eslint-plugin-react": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
     "chai": "^3.5.0",
     "mocha": "^5.2.0",
     "yeoman-assert": "^3.0.0",
@@ -45,7 +45,7 @@
   "scripts": {
     "lint": "eslint --color --f visualstudio --ext .js,.jsx,.ts,.tsx .",
     "test": "mocha",
-    "posttest": "npm run lint",
+    "pretest": "npm run lint",
     "test-watch": "mocha --watch --growl"
   }
 }

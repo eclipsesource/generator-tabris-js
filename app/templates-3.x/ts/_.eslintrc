@@ -8,6 +8,7 @@
       "arrowFunctions": true
     }
   },
+  "ignorePatterns": "node_modules",
   "env": {
     "es6": true
   },
@@ -120,13 +121,13 @@
         "@typescript-eslint/await-thenable": "warn",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-inferrable-types": "off",
-        "@typescript-eslint/class-name-casing": "warn",
         "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-parameter-properties": "off",
         "@typescript-eslint/promise-function-async": "error",
         "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/consistent-type-assertions": [
           "error",
           {

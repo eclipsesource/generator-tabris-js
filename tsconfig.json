@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "noEmit": true,
+    "lib": [
+      "es2017"
+    ],
+    "jsx": "react",
+    "jsxFactory": "JSX.createElement",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": [
+    "./app/templates-3.x/**/*.ts",
+    "./app/templates-3.x/**/*.tsx",
+    "./app/templates-3.x/**/*.js",
+    "./app/templates-3.x/**/*.jsx"
+  ]
+}
