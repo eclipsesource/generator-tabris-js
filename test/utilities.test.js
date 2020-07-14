@@ -1,6 +1,16 @@
+const {statSync, existsSync} = require('fs');
+const {resolve} = require('path');
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const {toAppId, toName, isValidAppId} = require('../app/utilities');
+const {
+  toAppId,
+  toName,
+  isValidAppId,
+  templateRequiresTsc,
+  templateSupportsMocha,
+  templateRequiresDecorators
+} = require('../app/utilities');
+const {TEMPLATES} = require('../app/templates.data');
 
 describe('Generator utilities:', function() {
 
@@ -83,6 +93,61 @@ describe('Generator utilities:', function() {
       expect(isValidAppId('my.app.!d')).to.be.false;
       expect(isValidAppId('my.@pp.id')).to.be.false;
       expect(isValidAppId('m$.app.id')).to.be.false;
+    });
+
+  });
+
+  describe('templateRequiresTsc', function() {
+
+    it('returns correct values', function() {
+      expect(templateRequiresTsc(null)).to.be.false;
+      expect(templateRequiresTsc('mvvm')).to.be.true;
+      expect(templateRequiresTsc('mvp')).to.be.true;
+      expect(templateRequiresTsc('tsx')).to.be.true;
+      expect(templateRequiresTsc('jsx')).to.be.true;
+      expect(templateRequiresTsc('js')).to.be.false;
+    });
+
+    it('matches template description', function() {
+      TEMPLATES.forEach(template => {
+        const expected = template.name.endsWith('(TypeScript/JSX)')
+          || template.name.endsWith('(JavaScript/JSX)');
+        expect(templateRequiresTsc(template.value)).to.equal(expected);
+      });
+    });
+
+  });
+
+  describe('templateSupportsMocha', function() {
+
+    it('returns correct values', function() {
+      expect(templateSupportsMocha(null)).to.be.false;
+      expect(templateSupportsMocha('mvvm')).to.be.true;
+      expect(templateSupportsMocha('mvp')).to.be.true;
+      expect(templateSupportsMocha('tsx')).to.be.true;
+      expect(templateSupportsMocha('jsx')).to.be.false;
+      expect(templateSupportsMocha('js')).to.be.false;
+    });
+
+    it('matches template folders', function() {
+      TEMPLATES.forEach(template => {
+        const path = resolve(__dirname, '../app/templates-3.x/ts/test-' + template.value);
+        const stat = existsSync(path) && statSync(path);
+        expect(templateSupportsMocha(template.value)).to.equal(stat && stat.isDirectory());
+      });
+    });
+
+  });
+
+  describe('templateRequiresDecorators', function() {
+
+    it('returns correct values', function() {
+      expect(templateRequiresDecorators(null)).to.be.false;
+      expect(templateRequiresDecorators('mvvm')).to.be.true;
+      expect(templateRequiresDecorators('mvp')).to.be.true;
+      expect(templateRequiresDecorators('tsx')).to.be.false;
+      expect(templateRequiresDecorators('jsx')).to.be.false;
+      expect(templateRequiresDecorators('js')).to.be.false;
     });
 
   });

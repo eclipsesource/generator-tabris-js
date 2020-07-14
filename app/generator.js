@@ -1,25 +1,16 @@
 const path = require('path');
 const Generator = require('yeoman-generator');
-const {toAppId, toName, isValidAppId} = require('./utilities.js');
+const {
+  toAppId,
+  toName,
+  isValidAppId,
+  templateRequiresDecorators,
+  templateRequiresTsc,
+  templateSupportsMocha
+} = require('./utilities.js');
+const {TEMPLATES} = require('./templates.data');
 
 const VERSION_REGEXP = /'([2-3]\..*)'/;
-
-const TEMPLATES = [{
-  name: 'Model-View-ViewModel (TypeScript/JSX)',
-  value: 'mvvm'
-}, {
-  name: 'Model-View-Presenter (TypeScript/JSX)',
-  value: 'mvp'
-}, {
-  name: 'Hello World (TypeScript/JSX)',
-  value: 'tsx'
-}, {
-  name: 'Hello World (JavaScript/JSX)',
-  value: 'jsx'
-}, {
-  name: 'Hello World (JavaScript)',
-  value: 'js'
-}];
 
 const CONFIG = [
   {
@@ -32,7 +23,7 @@ const CONFIG = [
     short: 'Mocha',
     value: 'mocha',
     disabled: ({template}) =>
-      (!template || template.startsWith('js')) ? 'Disabled: TypeScript only' : false
+      templateSupportsMocha(template) ? false : 'Disabled: TypeScript only'
   }
 ];
 
@@ -64,7 +55,7 @@ module.exports = class extends Generator {
       choices: CONFIG
     }
     ]).then(answers => {
-      const tsc = answers.template !== 'js';
+      const tsc = templateRequiresTsc(answers.template);
       const tabrisLatest = this._npmVersion('tabris@latest').pop();
       this._props = {
         app_id: answers.app_id,
@@ -164,7 +155,7 @@ module.exports = class extends Generator {
     this.npmInstall(['tabris@' + version], {
       savePrefix: '~'
     });
-    if (this._props.example === 'mvp' || this._props.example === 'mvvm') {
+    if (templateRequiresDecorators(this._props.example)) {
       this.npmInstall(['tabris-decorators@' + version], {
         savePrefix: '~'
       });

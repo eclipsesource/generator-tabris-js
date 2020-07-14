@@ -1,7 +1,14 @@
 /*
  * Utility functions for convenience
  */
-module.exports = {toAppId, toName, isValidAppId};
+module.exports = {
+  toAppId,
+  toName,
+  isValidAppId,
+  templateRequiresTsc,
+  templateSupportsMocha,
+  templateRequiresDecorators
+};
 
 const VALID_APP_ID_REGEX = /^([a-z0-9_]+\.)+[a-z][a-z0-9_]+$/i;
 
@@ -25,4 +32,25 @@ function toName(string) {
 
 function isValidAppId(string) {
   return VALID_APP_ID_REGEX.test(string);
+}
+
+/**
+ * @param {string} templateId
+ */
+function templateRequiresTsc(templateId) {
+  return !!templateId && (templateId !== 'js');
+}
+
+/**
+ * @param {string} templateId
+ */
+function templateSupportsMocha(templateId) {
+  return templateRequiresTsc(templateId) && templateId !== 'jsx';
+}
+
+/**
+ * @param {string} templateId
+ */
+function templateRequiresDecorators(templateId) {
+  return templateSupportsMocha(templateId) && templateId !== 'tsx';
 }
