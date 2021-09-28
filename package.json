@@ -28,13 +28,13 @@
     "yeoman-generator": "^3.1.1"
   },
   "devDependencies": {
-    "typescript": "^3.8.x",
-    "eslint": "latest",
-    "eslint-plugin-react": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "chai": "^3.5.0",
+    "eslint": "latest",
+    "eslint-plugin-react": "latest",
     "mocha": "^5.2.0",
+    "typescript": "^3.8.x",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
