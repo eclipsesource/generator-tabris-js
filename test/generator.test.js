@@ -41,10 +41,10 @@ describe('Generator', function() {
     }
   }
 
-  function lint(files) {
+  async function lint(files) {
     const eslint = require(process.cwd() + '/node_modules/eslint');
-    const cli = new eslint.CLIEngine({extensions: ['.js', '.jsx', '.ts', '.tsx']});
-    return cli.executeOnFiles(files);
+    const instance = new eslint.ESLint({extensions: ['.js', '.jsx', '.ts', '.tsx']});
+    return (await instance.lintFiles(files))[0];
   }
 
   describe('creates vanilla JavaScript projects', function() {
@@ -117,8 +117,8 @@ describe('Generator', function() {
       assert.file(['.eslintrc', 'src/app.js', '.vscode/tasks.json']);
     });
 
-    it('creates code passing eslint check', function() {
-      expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+    it('creates code passing eslint check', async function() {
+      expect(await lint('src')).to.include({warningCount: 0, errorCount: 0});
     });
 
   });
@@ -210,7 +210,7 @@ describe('Generator', function() {
     });
 
     it('lints jsx example', async function() {
-      expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+      expect(await lint('src')).to.include({warningCount: 0, errorCount: 0});
     });
 
   });
@@ -303,24 +303,25 @@ describe('Generator', function() {
           'test/App.test.ts'
         ]);
       });
+
       it('lints jsx example', async function() {
         await runGenerator({type: 'ts', example: 'jsx', keepNodeModules: true});
-        expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('src')).to.include({warningCount: 0, errorCount: 0});
       });
 
       it('lints tsx example', async function() {
         await runGenerator({type: 'ts', example: 'tsx', keepNodeModules: true});
-        expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('src')).to.include({warningCount: 0, errorCount: 0});
       });
 
       it('lints mvp example', async function() {
         await runGenerator({type: 'ts', example: 'mvp', keepNodeModules: true});
-        expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('src')).to.include({warningCount: 0, errorCount: 0});
       });
 
       it('lints mvvm example', async function() {
         await runGenerator({type: 'ts', example: 'mvvm', keepNodeModules: true});
-        expect(lint('src')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('src')).to.include({warningCount: 0, errorCount: 0});
       });
 
     });
@@ -425,17 +426,17 @@ describe('Generator', function() {
 
       it('lints tsx example tests', async function() {
         await runGenerator({type: 'ts', example: 'tsx', keepNodeModules: true, tests: true});
-        expect(lint('test')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('test')).to.include({warningCount: 0, errorCount: 0});
       });
 
       it('lints mvp example tests', async function() {
         await runGenerator({type: 'ts', example: 'mvp', keepNodeModules: true, tests: true});
-        expect(lint('test')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('test')).to.include({warningCount: 0, errorCount: 0});
       });
 
       it('lints mvvm example tests', async function() {
         await runGenerator({type: 'ts', example: 'mvvm', keepNodeModules: true, tests: true});
-        expect(lint('test')).to.include({warningCount: 0, errorCount: 0});
+        expect(await lint('test')).to.include({warningCount: 0, errorCount: 0});
       });
 
     });
