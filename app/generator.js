@@ -160,34 +160,37 @@ module.exports = class extends Generator {
         savePrefix: '~'
       });
     }
-    this.npmInstall(['eslint'], {
+    this.npmInstall(['eslint@^8.27.0'], {
       saveDev: true
     });
     if (this._props.proj_type === 'ts') {
-      this.npmInstall(['typescript@3.8.x'], {
+      this.npmInstall(['typescript@4.8.x'], {
         saveDev: true,
-        savePrefix: '~'
+        savePrefix: '~',
+        loglevel: 'error'
       });
       this.npmInstall([
-        '@typescript-eslint/parser',
-        '@typescript-eslint/eslint-plugin',
-        'eslint-plugin-react'
+        '@typescript-eslint/eslint-plugin@^5.42.0',
+        '@typescript-eslint/parser@^5.42.0',
+        'eslint-plugin-react@^7.31.10'
       ], {
-        saveDev: true
+        saveDev: true,
+        loglevel: 'error'
       });
     }
     if (this._props.tests === 'mocha') {
       this.npmInstall([
-        'mocha',
-        '@types/mocha',
-        'sinon',
-        'chai',
-        '@types/sinon',
-        'sinon-chai',
-        '@types/sinon-chai',
-        'ts-node'
+        'mocha@^10.1.0',
+        '@types/mocha@^10.0.0',
+        'sinon@^14.0.2',
+        'chai@^4.3.7',
+        '@types/sinon@^10.0.13',
+        'sinon-chai@^3.7.0',
+        '@types/sinon-chai@^3.2.9',
+        'ts-node@^10.9.1'
       ], {
-        saveDev: true
+        saveDev: true,
+        loglevel: 'error'
       });
     }
   }
