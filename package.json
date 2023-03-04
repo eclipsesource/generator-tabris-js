@@ -33,7 +33,7 @@
     "chai": "^3.5.0",
     "eslint": "latest",
     "eslint-plugin-react": "latest",
-    "mocha": "^5.2.0",
+    "mocha": "^10.2.0",
     "typescript": "^3.8.x",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
