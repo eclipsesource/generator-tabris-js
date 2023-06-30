@@ -160,7 +160,7 @@ module.exports = class extends Generator {
         savePrefix: '~'
       });
     }
-    this.npmInstall(['eslint@^8.27.0'], {
+    this.npmInstall(['eslint@^8.43.0'], {
       saveDev: true
     });
     if (this._props.proj_type === 'ts') {
@@ -170,9 +170,9 @@ module.exports = class extends Generator {
         loglevel: 'error'
       });
       this.npmInstall([
-        '@typescript-eslint/eslint-plugin@^5.42.0',
-        '@typescript-eslint/parser@^5.42.0',
-        'eslint-plugin-react@^7.31.10'
+        '@typescript-eslint/eslint-plugin@^5.60.1',
+        '@typescript-eslint/parser@^5.60.1',
+        'eslint-plugin-react@^7.32.2'
       ], {
         saveDev: true,
         loglevel: 'error'
